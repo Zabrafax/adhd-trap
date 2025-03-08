@@ -48,7 +48,7 @@ export class Arc {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist + ballRadius >= this.radius) {
-            console.log("Gone through");
+            //console.log("Gone through");
             return true;
         }
         return false;

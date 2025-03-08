@@ -1,21 +1,36 @@
 import {random} from "./utils.js";
 
 export class Ball {
-    constructor(y, x, ballRadius, deltaLimit, canvas, gravity, bounceFactor) {
+    constructor(y, x, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier) {
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
-        this.dx = random(-3, 3);
-        this.dy = random(-3, 3);
-        this.gravity = gravity;
+        this.dx = random(2.5, 3);
+        this.dy = random(2.5, 3);
         this.bounceFactor = bounceFactor;
+        this.massMultiplier = massMultiplier;
         this._y = y;
         this._x = x;
         this._ballRadius = ballRadius;
+        this.gravity = 0;
+
+        this.calculateGravity();
+    }
+
+    calculateGravity() {
+        this.gravity = this.massMultiplier * this._ballRadius * this._ballRadius * Math.PI;
+    }
+
+    setRadius(radiusChange) {
+        this.deltaLimit *= (1 + radiusChange / this._ballRadius / 4);
+        this._ballRadius += radiusChange;
+    }
+
+    setRadiusAndNewGravity(radius) {
+        this._ballRadius = radius;
+        this.calculateGravity();
     }
 
     move(arcs) {
-        this.dy += this.gravity;
-
         if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
             this.dx *= -this.bounceFactor;
             if(this.dx > this.deltaLimit){
@@ -98,6 +113,8 @@ export class Ball {
                 return;
             }
         }
+
+        this.dy += this.gravity;
 
         this._x += this.dx;
         this._y += this.dy;

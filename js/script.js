@@ -1,6 +1,7 @@
 import {Arc} from './arc.js';
 import {Ball} from "./ball.js";
 import {ShadowBall} from "./shadowBall.js";
+import {drawScore} from "./utils.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -12,10 +13,10 @@ const gapAngle = 25;
 const arcSpeed = 0.002;
 const arcThickness = 5;
 
-const ballRadius = 15;
-const deltaLimit = 3;
-const gravity = 0.05;
-const bounceFactor = 1.1;
+const ballRadius = 10;
+const deltaLimit = 10;
+const bounceFactor = 1.02;
+const massMultiplier = 0.0005;
 
 let shadowBalls = [];
 
@@ -25,7 +26,7 @@ function resizeCanvas() {
 
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
-    radius = Math.min(canvas.width, canvas.height) / 8;
+    radius = Math.min(canvas.width, canvas.height) / 6;
 }
 
 resizeCanvas();
@@ -37,7 +38,7 @@ for (let i = 0; i < numArcs; i++) {
         arcSpeed + i * arcSpeed / 15, arcThickness));
 }
 
-let ball = new Ball(centerY + 40, centerX, ballRadius, deltaLimit, canvas, gravity, bounceFactor);
+let ball = new Ball(centerY + 40, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,8 +55,16 @@ function animate() {
     //shadowBall adding
     shadowBalls.push(new ShadowBall(ball.y, ball.x, ball.ballRadius, 0.8));
 
-    //arc delete
-    arcs = arcs.filter(arc => !arc.hasGoneThrough(ball.y, ball.x, ball.ballRadius));
+    arcs = arcs.filter(arc => {
+        if (arc.hasGoneThrough(ball.y, ball.x, ball.ballRadius)) {
+            onArcPassed(arc);
+            return false;
+        }
+        return true;
+    });
+
+
+    drawScore(centerY + 10, centerX - 15, ctx, arcs.length);
 
     //arc, shadow, ball drawing
     arcs.forEach(arc => arc.draw(ctx));
@@ -63,6 +72,11 @@ function animate() {
     ball.draw(ctx);
 
     requestAnimationFrame(animate);
+}
+
+function onArcPassed(arc) {
+    //console.log("Arc is passed", arc);
+    ball.setRadius(2);
 }
 
 animate();
