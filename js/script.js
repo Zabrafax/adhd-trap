@@ -15,7 +15,7 @@ const arcThickness = 5;
 
 const ballRadius = 10;
 const deltaLimit = 10;
-const bounceFactor = 1.02;
+const bounceFactor = 1.05;
 const massMultiplier = 0.0005;
 
 let shadowBalls = [];
