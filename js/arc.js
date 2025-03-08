@@ -30,7 +30,7 @@ export class Arc {
         ctx.beginPath();
         ctx.arc(this.centerX, this.centerY, this.radius, this.angle,
             this.angle + 2 * Math.PI - this.gapAngle * Math.PI / 180);
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = "cyan";
         ctx.lineWidth = this.arcThickness;
         ctx.stroke();
         ctx.closePath();

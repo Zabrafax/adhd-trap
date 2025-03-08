@@ -7,8 +7,10 @@ export class Ball {
         this.ballRadius = ballRadius;
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
-        this.dx = random(3, 3.5);
-        this.dy = random(3, 3.5);
+        this.dx = 0;
+        this.dy = 3;
+        //this.dx = random(3, 3.5);
+        //this.dy = random(3, 3.5);
         this.gravity = gravity;
         this.bounceFactor = bounceFactor;
     }
@@ -54,13 +56,14 @@ export class Ball {
                 let newDx = tangentX * dotProductTangent + normalX * -dotProductNormal;
                 let newDy = tangentY * dotProductTangent + normalY * -dotProductNormal;
 
+
                 const epsilon = 1.5;
                 if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
                     this.dx = tangentX * dotProductTangent;
                     this.dy = tangentY * dotProductTangent;
 
 
-                    const angleDeviation = 20 * Math.PI / 180 * Math.sign(random(-1, 1));
+                    const angleDeviation = 15 * Math.PI / 180 * Math.sign(random(-1, 1));
 
                     const normalAngle = Math.atan2(normalY, normalX);
 
@@ -105,7 +108,13 @@ export class Ball {
     draw(ctx) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.ballRadius * 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = "black";
         ctx.fill();
         ctx.closePath();
     }
