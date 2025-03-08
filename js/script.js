@@ -13,7 +13,7 @@ const arcThickness = 3;
 
 const ballRadius = 15;
 const deltaLimit = 3;
-const gravity = 0.02;
+const gravity = 0.04;
 const bounceFactor = 1.1;
 
 let shadowBalls = [];
@@ -32,7 +32,7 @@ window.addEventListener("resize", resizeCanvas);
 
 
 for (let i = 0; i < numArcs; i++) {
-    arcs.push(new Arc(centerY, centerX, radius + i * arcThickness * 3, 20, arcSpeed + i * arcSpeed / 10, arcThickness));
+    arcs.push(new Arc(centerY, centerX, radius + i * arcThickness * 3, 45, arcSpeed + i * arcSpeed / 10, arcThickness));
 }
 
 let ball = new Ball(centerY + 40, centerX, ballRadius, deltaLimit, canvas, gravity, bounceFactor);

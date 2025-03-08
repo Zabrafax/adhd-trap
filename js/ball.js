@@ -7,10 +7,8 @@ export class Ball {
         this.ballRadius = ballRadius;
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
-        this.dx = 0;
-        this.dy = 3;
-        //this.dx = random(3, 3.5);
-        //this.dy = random(3, 3.5);
+        this.dx = random(2.5, 3);
+        this.dy = random(2.5, 3);
         this.gravity = gravity;
         this.bounceFactor = bounceFactor;
     }
