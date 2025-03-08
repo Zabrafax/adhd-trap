@@ -1,32 +1,36 @@
 import {Arc} from './arc.js';
 import {Ball} from "./ball.js";
 import {ShadowBall} from "./shadowBall.js";
-import {drawScore} from "./utils.js";
+import {drawScore, sleep} from "./utils.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let centerX, centerY, radius;
 let arcs = [];
-const numArcs = 15;
-const gapAngle = 25;
+const numArcs = 25;
+const arcGap = 5;
+const gapAngle = 30;
 const arcSpeed = 0.002;
-const arcThickness = 5;
+const arcThickness = 2;
 
 const ballRadius = 10;
-const deltaLimit = 10;
-const bounceFactor = 1.05;
-const massMultiplier = 0.0005;
+const deltaLimit = 7;
+const bounceFactor = 1.005;
+const massMultiplier = 0.0004;
 
 let shadowBalls = [];
 
 function resizeCanvas() {
-    canvas.width = document.body.clientWidth / 1.7;
-    canvas.height = document.body.clientWidth / 1.7;
+    const canvasElement = document.getElementById("canvas");
+    const container = document.querySelector(".canvas__container");
+
+    canvasElement.width = container.clientWidth;
+    canvasElement.height = container.clientHeight;
 
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
-    radius = Math.min(canvas.width, canvas.height) / 6;
+    radius = Math.min(canvas.width, canvas.height) / 20;
 }
 
 resizeCanvas();
@@ -34,13 +38,26 @@ window.addEventListener("resize", resizeCanvas);
 
 
 for (let i = 0; i < numArcs; i++) {
-    arcs.push(new Arc(centerY, centerX, radius + i * arcThickness * 3, gapAngle,
-        arcSpeed + i * arcSpeed / 15, arcThickness));
+    arcs.push(new Arc(centerY, centerX, radius + i * (arcGap + arcThickness), gapAngle,
+        arcSpeed + i * arcSpeed / 5, arcThickness));
 }
 
-let ball = new Ball(centerY + 40, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
+let ball = new Ball(centerY + 10, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
+
+let isPaused = false;
+
+async function pauseGame(ms) {
+    isPaused = true;
+    await sleep(ms);
+    isPaused = false;
+}
 
 function animate() {
+    if (isPaused) {
+        requestAnimationFrame(animate);
+        return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //shadowBall opacity decrease
@@ -72,11 +89,13 @@ function animate() {
     ball.draw(ctx);
 
     requestAnimationFrame(animate);
+
+    pauseGame(5);
 }
 
 function onArcPassed(arc) {
     //console.log("Arc is passed", arc);
-    ball.setRadius(2);
+    //ball.setRadius(2);
 }
 
 animate();

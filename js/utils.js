@@ -7,3 +7,7 @@ export function drawScore(y, x, ctx, score) {
     ctx.fillStyle = "white";
     ctx.fillText(score, x, y);
 }
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

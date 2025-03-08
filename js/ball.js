@@ -4,8 +4,8 @@ export class Ball {
     constructor(y, x, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier) {
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
-        this.dx = random(2.5, 3);
-        this.dy = random(2.5, 3);
+        this.dx = random(-2, 2);
+        this.dy = random(-2, 2);
         this.bounceFactor = bounceFactor;
         this.massMultiplier = massMultiplier;
         this._y = y;
@@ -31,6 +31,8 @@ export class Ball {
     }
 
     move(arcs) {
+        this.dy += this.gravity;
+
         if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
             this.dx *= -this.bounceFactor;
             if(this.dx > this.deltaLimit){
@@ -70,13 +72,13 @@ export class Ball {
                 let newDx = tangentX * dotProductTangent + normalX * -dotProductNormal;
                 let newDy = tangentY * dotProductTangent + normalY * -dotProductNormal;
 
-                const epsilon = 1.5;
+                const epsilon = 0.5;
                 if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
                     this.dx = tangentX * dotProductTangent;
                     this.dy = tangentY * dotProductTangent;
 
 
-                    const angleDeviation = 15 * Math.PI / 180 * Math.sign(random(-1, 1));
+                    const angleDeviation = 10 * Math.PI / 180 * Math.sign(random(-1, 1));
 
                     const normalAngle = Math.atan2(normalY, normalX);
 
@@ -107,14 +109,12 @@ export class Ball {
                     this.dy *= this.bounceFactor;
                 }
 
-                this._x = contact.x;
-                this._y = contact.y;
+                //this._x = contact.x;
+                //this._y = contact.y;
 
                 return;
             }
         }
-
-        this.dy += this.gravity;
 
         this._x += this.dx;
         this._y += this.dy;

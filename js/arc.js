@@ -24,7 +24,7 @@ export class Arc {
         const dx = x - this.centerX;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < this.radius - ballRadius - this.arcThickness) {
+        if (dist < this.radius - ballRadius - this.arcThickness / 2) {
             return false;
         }
 
