@@ -8,14 +8,14 @@ const ctx = canvas.getContext("2d");
 let centerX, centerY, radius;
 let arcs = [];
 const numArcs = 15;
-const gapAngle = 30;
+const gapAngle = 25;
 const arcSpeed = 0.002;
 const arcThickness = 5;
 
 const ballRadius = 15;
 const deltaLimit = 3;
-const gravity = 0.04;
-const bounceFactor = 1.2;
+const gravity = 0.05;
+const bounceFactor = 1.1;
 
 let shadowBalls = [];
 
@@ -42,21 +42,25 @@ let ball = new Ball(centerY + 40, centerX, ballRadius, deltaLimit, canvas, gravi
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    //shadowBall opacity decrease
     shadowBalls = shadowBalls.filter(ball => ball.opacity > 0);
     shadowBalls.forEach(ball => {
         ball.iterate();
-        ball.draw(ctx);
     });
 
+    //ball movement
     ball.move(arcs);
-    ball.draw(ctx);
+
+    //shadowBall adding
     shadowBalls.push(new ShadowBall(ball.y, ball.x, ball.ballRadius, 0.8));
 
+    //arc delete
     arcs = arcs.filter(arc => !arc.hasGoneThrough(ball.y, ball.x, ball.ballRadius));
 
-    for (let arc of arcs) {
-        arc.draw(ctx);
-    }
+    //arc, shadow, ball drawing
+    arcs.forEach(arc => arc.draw(ctx));
+    shadowBalls.forEach(ball => ball.draw(ctx));
+    ball.draw(ctx);
 
     requestAnimationFrame(animate);
 }

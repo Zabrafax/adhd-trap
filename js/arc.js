@@ -13,9 +13,9 @@ export class Arc {
         let startGap = this.angle;
         let endGap = this.angle + this.gapAngle * Math.PI / 180;
 
-        console.log("angle: " + angle);
-        console.log("startGap: " + startGap);
-        console.log("endGap: " + endGap);
+        // console.log("angle: " + angle);
+        // console.log("startGap: " + startGap);
+        // console.log("endGap: " + endGap);
         return angle >= startGap && angle <= endGap;
     }
 
@@ -47,7 +47,7 @@ export class Arc {
         const dx = x - this.centerX;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist + ballRadius > this.radius + this.arcThickness) {
+        if (dist + ballRadius >= this.radius) {
             console.log("Gone through");
             return true;
         }

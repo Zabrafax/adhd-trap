@@ -2,37 +2,37 @@ import {random} from "./utils.js";
 
 export class Ball {
     constructor(y, x, ballRadius, deltaLimit, canvas, gravity, bounceFactor) {
-        this.y = y;
-        this.x = x;
-        this.ballRadius = ballRadius;
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
         this.dx = random(-3, 3);
         this.dy = random(-3, 3);
         this.gravity = gravity;
         this.bounceFactor = bounceFactor;
+        this._y = y;
+        this._x = x;
+        this._ballRadius = ballRadius;
     }
 
     move(arcs) {
         this.dy += this.gravity;
 
-        if (this.x - this.ballRadius < 0 || this.x + this.ballRadius > this.canvas.width) {
+        if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
             this.dx *= -this.bounceFactor;
             if(this.dx > this.deltaLimit){
                 this.dx = this.deltaLimit;
             }
-            this.x = Math.max(this.ballRadius, Math.min(this.canvas.width - this.ballRadius, this.x));
+            this._x = Math.max(this._ballRadius, Math.min(this.canvas.width - this._ballRadius, this._x));
         }
-        if (this.y - this.ballRadius < 0 || this.y + this.ballRadius > this.canvas.height) {
+        if (this._y - this._ballRadius < 0 || this._y + this._ballRadius > this.canvas.height) {
             this.dy *= -this.bounceFactor;
             if(this.dy > this.deltaLimit){
                 this.dy = this.deltaLimit;
             }
-            this.y = Math.max(this.ballRadius, Math.min(this.canvas.height - this.ballRadius, this.y));
+            this._y = Math.max(this._ballRadius, Math.min(this.canvas.height - this._ballRadius, this._y));
         }
 
         for (let arc of arcs) {
-            const contact = arc.hasCollisionInside(this.y + this.dy, this.x + this.dx, this.ballRadius);
+            const contact = arc.hasCollisionInside(this._y + this.dy, this._x + this.dx, this._ballRadius);
 
             if (contact) {
                 const totalDx = contact.x - arc.centerX;
@@ -92,28 +92,40 @@ export class Ball {
                     this.dy *= this.bounceFactor;
                 }
 
-                this.x = contact.x;
-                this.y = contact.y;
+                this._x = contact.x;
+                this._y = contact.y;
 
                 return;
             }
         }
 
-        this.x += this.dx;
-        this.y += this.dy;
+        this._x += this.dx;
+        this._y += this.dy;
     }
 
     draw(ctx) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
+        ctx.arc(this._x, this._y, this._ballRadius, 0, Math.PI * 2);
         ctx.fillStyle = "white";
         ctx.fill();
         ctx.closePath();
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.ballRadius * 0.8, 0, Math.PI * 2);
+        ctx.arc(this._x, this._y, this._ballRadius * 0.8, 0, Math.PI * 2);
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.closePath();
+    }
+
+    get y() {
+        return this._y;
+    }
+
+    get x() {
+        return this._x;
+    }
+
+    get ballRadius() {
+        return this._ballRadius;
     }
 }
