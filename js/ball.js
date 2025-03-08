@@ -7,8 +7,8 @@ export class Ball {
         this.ballRadius = ballRadius;
         this.deltaLimit = deltaLimit;
         this.canvas = canvas;
-        this.dx = random(2.5, 3);
-        this.dy = random(2.5, 3);
+        this.dx = random(-3, 3);
+        this.dy = random(-3, 3);
         this.gravity = gravity;
         this.bounceFactor = bounceFactor;
     }
@@ -51,9 +51,9 @@ export class Ball {
                 const dotProductNormal = this.dx * normalX + this.dy * normalY;
                 const dotProductTangent = this.dx * tangentX + this.dy * tangentY;
 
+                //speed reverse
                 let newDx = tangentX * dotProductTangent + normalX * -dotProductNormal;
                 let newDy = tangentY * dotProductTangent + normalY * -dotProductNormal;
-
 
                 const epsilon = 1.5;
                 if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
@@ -73,7 +73,7 @@ export class Ball {
                     this.dx += newNormalX * -dotProductNormal;
                     this.dy += newNormalY * -dotProductNormal;
 
-                    console.log("random");
+                    //console.log("random");
                 } else {
                     this.dx = newDx;
                     this.dy = newDy;
@@ -99,8 +99,8 @@ export class Ball {
             }
         }
 
-        this.x = this.x + this.dx * this.bounceFactor;
-        this.y = this.y + this.dy * this.bounceFactor;
+        this.x += this.dx;
+        this.y += this.dy;
     }
 
     draw(ctx) {
