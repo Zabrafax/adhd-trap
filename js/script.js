@@ -8,25 +8,31 @@ const ctx = canvas.getContext("2d");
 
 let centerX, centerY, radius;
 let arcs = [];
-const numArcs = 25;
-const arcGap = 5;
+const numArcs = 15;
+const arcGap = 15;
 const gapAngle = 30;
 const arcSpeed = 0.002;
-const arcThickness = 2;
+const arcThickness = 7;
 
-const ballRadius = 10;
+const ballRadius = 15;
 const deltaLimit = 7;
-const bounceFactor = 1.005;
-const massMultiplier = 0.0004;
+const bounceFactor = 1.01;
+const massMultiplier = 0.0001;
 
 let shadowBalls = [];
 
 function resizeCanvas() {
     const canvasElement = document.getElementById("canvas");
     const container = document.querySelector(".canvas__container");
+    //
+    // canvasElement.width = container.clientWidth;
+    // canvasElement.height = container.clientHeight;
 
-    canvasElement.width = container.clientWidth;
-    canvasElement.height = container.clientHeight;
+    canvasElement.width = 1024;
+    canvasElement.height = 1024;
+
+    canvasElement.style.width = `${container.clientWidth}px`;
+    canvasElement.style.height = `${container.clientHeight}px`;
 
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
@@ -90,12 +96,12 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-    pauseGame(5);
+    //pauseGame(5);
 }
 
 function onArcPassed(arc) {
     //console.log("Arc is passed", arc);
-    //ball.setRadius(2);
+    ball.setRadius(2);
 }
 
 animate();

@@ -63,8 +63,29 @@ export class Arc {
         ctx.stroke();
         ctx.closePath();
 
+        this.drawTick(ctx, this.angle + this.gapAngle * Math.PI / 180);
+        this.drawTick(ctx, this.angle);
+
         this.angle += this.rotationSpeed;
         if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;
         if (this.angle < 0) this.angle += 2 * Math.PI;
+    }
+
+    drawTick(ctx, angle) {
+        const tickLength = 15;
+
+        const x = this.centerX + (this.radius - tickLength / 2) * Math.cos(angle);
+        const y = this.centerY + (this.radius - tickLength / 2) * Math.sin(angle);
+
+        const x2 = this.centerX + (this.radius + tickLength / 2) * Math.cos(angle);
+        const y2 = this.centerY + (this.radius + tickLength / 2) * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = this.arcThickness / 2;
+        ctx.stroke();
+        ctx.closePath();
     }
 }

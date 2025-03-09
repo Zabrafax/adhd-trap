@@ -1,9 +1,19 @@
+/*:root {*/
+/*    --color-header: #C2BBFB;*/
+/*    --color-main: #B4ADEA;*/
+/*    --color-background: #6C738D;*/
+/*    --color-footer: #917BC1;*/
+/*    --canvas-background: #000000;*/
+/*    --text-color: #000000;*/
+/*}*/
+
 :root {
-    --color-header: #C2BBFB;
-    --color-main: #B4ADEA;
-    --color-background: #6C738D;
-    --color-footer: #917BC1;
+    --color-header: #2b2b2b;
+    --color-main: #373737;
+    --color-background: #575757;
+    --color-footer: #171717;
     --canvas-background: #000000;
+    --text-color: #fff;
 }
 
 * {
@@ -13,16 +23,15 @@
 }
 
 body {
-    font-family: Verdana, serif;
-    font-weight: 700;
+    font-family: "Courier New", Courier, monospace;
 
     background-color: var(--color-background);
-    color: black;
+    color: var(--text-color);
     min-height: 100vh;
 }
 
 header {
-    height: 10vh;
+    height: 5rem;
 
     display: flex;
     justify-content: start;
@@ -30,8 +39,10 @@ header {
 
     text-align: center;
     font-size: 2rem;
+    font-style: italic;
+    font-weight: 400;
 
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     background: var(--color-header);
 
     position: sticky;
@@ -51,8 +62,8 @@ main {
 }
 
 .canvas__container {
-    width: 38rem;
-    height: 38rem;
+    width: 40rem;
+    height: 40rem;
 
     display: flex;
     justify-content: center;
@@ -62,15 +73,25 @@ main {
 canvas {
     background: var(--canvas-background);
 
-    border: 3px solid white;
-    border-radius: 1rem;
+    border: 3px solid var(--color-footer);
+    border-radius: 0.5rem;
 
-    box-shadow: 0 0 0.5rem white;
+    /*box-shadow: 0 0 0.5rem black;*/
 }
 
 footer {
     padding: 1rem 2rem;
 
+    font-weight: 400;
+
     text-align: center;
     background-color: var(--color-footer);
+}
+
+footer p:not(:first-of-type) {
+    margin-top: 0.25rem;
+}
+
+footer p:first-of-type {
+    margin-top: 0.5rem;
 }
