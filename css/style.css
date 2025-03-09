@@ -23,7 +23,6 @@
     --color-button-violet-2: #9a3efd;
     --color-button-violet-3: #7c09ff;
 
-
     --color-button-red-1: #ff5151;
     --color-button-red-2: #ff1e1e;
     --color-button-red-3: #ff0000;
@@ -89,6 +88,7 @@ header {
 
 main {
     max-width: 2000px;
+    min-height: calc(100vh - 5rem - 5rem);
     margin: 0 auto;
     padding: 2rem 0;
 
@@ -156,6 +156,7 @@ main {
 }
 
 footer {
+    height: 5rem;
     padding: 1rem 2rem;
 
     font-weight: 400;

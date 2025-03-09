@@ -44,6 +44,12 @@ window.addEventListener("resize", resizeCanvas);
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', function() {
+    if (pauseButton.classList.contains("green-theme")) {
+        pauseButton.classList.remove("green-theme");
+        pauseButton.classList.add("red-theme");
+        pauseButton.setAttribute("data", "Pause");
+    }
+
     initializeGame();
     isPaused = false;
     console.log('Start Button is Pressed');
@@ -51,6 +57,16 @@ startButton.addEventListener('click', function() {
 
 const pauseButton = document.getElementById('pauseButton');
 pauseButton.addEventListener('click', function() {
+    if (pauseButton.classList.contains("red-theme")) {
+        pauseButton.classList.remove("red-theme");
+        pauseButton.classList.add("green-theme");
+        pauseButton.setAttribute("data", "Play");
+    } else {
+        pauseButton.classList.remove("green-theme");
+        pauseButton.classList.add("red-theme");
+        pauseButton.setAttribute("data", "Pause");
+    }
+
     isPaused = !isPaused;
     console.log('Pause Button is Pressed');
 });
@@ -101,17 +117,15 @@ function animate() {
 function initializeGame() {
     shadowBalls = [];
     arcs = [];
-
     //arcs
     for (let i = 0; i < numArcs; i++) {
         arcs.push(new Arc(centerY, centerX, radius + i * (arcGap + arcThickness), gapAngle,
             arcSpeed + i * arcSpeed / 5, arcThickness));
     }
-
     //ball
     ball = new Ball(centerY + 10, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
 
-    isPaused = true;
+    isPaused = false;
 }
 
 async function pauseGame(ms) {
