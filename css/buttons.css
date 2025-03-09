@@ -1,0 +1,73 @@
+.button__primary {
+    width: 50%;
+    height: 3rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    background: var(--button-color-bright, var(--color-button-default-2));
+    color: var(--button-color-text, var(--text-button-default));
+    box-shadow: 0 0 2rem var(--button-color-bright, var(--color-button-default-2));
+    transition: 400ms;
+
+    border: none;
+    border-radius: 1rem;
+
+    cursor: pointer;
+}
+
+.button__primary:hover {
+    background: var(--button-color-pressed, var(--color-button-default-3));
+}
+
+.button__primary:active {
+    box-shadow: none;
+}
+
+.button__secondary {
+    position: relative;
+
+    width: 50%;
+    height: 3rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    background-color: var(--button-color-bright, var(--color-button-default-2));
+    transition: 600ms;
+
+    border-radius: 1rem;
+    border: none;
+
+    cursor: pointer;
+}
+
+.button__secondary::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+
+    background-color: var(--button-color-bg, var(--color-main));
+    border-radius: calc(1rem - 3px);
+
+    border: none;
+}
+
+.button__secondary::after {
+    position: relative;
+    content: attr(data);
+    color: var(--button-color-bright, var(--color-button-default-2));
+}
+
+.button__secondary:hover {
+    box-shadow: 0 0 1.5rem var(--button-color-bright, var(--color-button-default-2));
+    transition: 200ms;
+}
+
+.button__secondary:active {
+    background-color: var(--button-color-pressed, var(--color-button-default-3));
+    box-shadow: none;
+}

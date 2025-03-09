@@ -14,6 +14,7 @@ const gapAngle = 30;
 const arcSpeed = 0.002;
 const arcThickness = 7;
 
+let ball;
 const ballRadius = 15;
 const deltaLimit = 7;
 const bounceFactor = 1.01;
@@ -21,12 +22,11 @@ const massMultiplier = 0.0001;
 
 let shadowBalls = [];
 
+let isPaused;
+
 function resizeCanvas() {
     const canvasElement = document.getElementById("canvas");
     const container = document.querySelector(".canvas__container");
-    //
-    // canvasElement.width = container.clientWidth;
-    // canvasElement.height = container.clientHeight;
 
     canvasElement.width = 1024;
     canvasElement.height = 1024;
@@ -42,21 +42,20 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-
-for (let i = 0; i < numArcs; i++) {
-    arcs.push(new Arc(centerY, centerX, radius + i * (arcGap + arcThickness), gapAngle,
-        arcSpeed + i * arcSpeed / 5, arcThickness));
-}
-
-let ball = new Ball(centerY + 10, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
-
-let isPaused = false;
-
-async function pauseGame(ms) {
-    isPaused = true;
-    await sleep(ms);
+const startButton = document.getElementById('startButton');
+startButton.addEventListener('click', function() {
+    initializeGame();
     isPaused = false;
-}
+    console.log('Start Button is Pressed');
+});
+
+const pauseButton = document.getElementById('pauseButton');
+pauseButton.addEventListener('click', function() {
+    isPaused = !isPaused;
+    console.log('Pause Button is Pressed');
+});
+
+initializeGame();
 
 function animate() {
     if (isPaused) {
@@ -97,6 +96,28 @@ function animate() {
     requestAnimationFrame(animate);
 
     //pauseGame(5);
+}
+
+function initializeGame() {
+    shadowBalls = [];
+    arcs = [];
+
+    //arcs
+    for (let i = 0; i < numArcs; i++) {
+        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap + arcThickness), gapAngle,
+            arcSpeed + i * arcSpeed / 5, arcThickness));
+    }
+
+    //ball
+    ball = new Ball(centerY + 10, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
+
+    isPaused = true;
+}
+
+async function pauseGame(ms) {
+    isPaused = true;
+    await sleep(ms);
+    isPaused = false;
 }
 
 function onArcPassed(arc) {
