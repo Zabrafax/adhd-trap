@@ -32,7 +32,7 @@ function resizeCanvas() {
     canvasElement.height = 1024;
 
     canvasElement.style.width = `${container.clientWidth}px`;
-    canvasElement.style.height = `${container.clientHeight}px`;
+    canvasElement.style.height = `${container.clientWidth}px`;
 
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
