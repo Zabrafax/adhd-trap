@@ -8,7 +8,7 @@ const ctx = canvas.getContext("2d");
 
 let centerX, centerY, radius;
 let arcs = [];
-const numArcs = 15;
+const numArcs = 20;
 const arcGap = 15;
 const gapAngle = 30;
 const arcSpeed = 0.002;
