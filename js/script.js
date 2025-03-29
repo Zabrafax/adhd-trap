@@ -1,45 +1,32 @@
-import {Arc} from './game/arc.js';
-import {Ball} from "./game/ball.js";
-import {ShadowBall} from "./game/shadowBall.js";
-import {drawScore, sleep} from "./utils.js";
 import {initializeSlider} from "./slider.js";
+import {Game} from "./game/game.js";
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
+const canvasElement = document.getElementById("canvas");
+const container = document.querySelector(".canvas__container");
+const ctx = canvasElement.getContext("2d");
 let centerX, centerY, radius;
-let arcs = [];
+
 // const numArcs = 20;
 // const arcGap = 15;
 // const arcThickness = 5;
 // const gapAngle = 30;
 // const arcSpeed = 0.002;
 
-let ball;
 // const ballRadius = 15;
-const deltaLimit = 7;
-const bounceFactor = 1.01;
-const massMultiplier = 0.0001;
+// const deltaLimit = 7;
+// const bounceFactor = 1.01;
+// const massMultiplier = 0.0001;
 
-let shadowBalls = [];
-
-let isPaused;
+let game = new Game();
 
 function resizeCanvas() {
-    const canvasElement = document.getElementById("canvas");
-    const container = document.querySelector(".canvas__container");
-
-    canvasElement.width = 1024;
-    canvasElement.height = 1024;
+    canvasElement.width = 1600;
+    canvasElement.height = 1600;
 
     canvasElement.style.width = `${container.clientWidth}px`;
     canvasElement.style.height = `${container.clientWidth}px`;
-
-    centerX = canvas.width / 2;
-    centerY = canvas.height / 2;
-    radius = Math.min(canvas.width, canvas.height) / 20;
+    game.updateCtx(canvasElement, ctx);
 }
-
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
@@ -52,7 +39,6 @@ startButton.addEventListener('click', function() {
     }
 
     initializeGame();
-    isPaused = false;
     console.log('Start Button is Pressed');
 });
 
@@ -68,7 +54,7 @@ pauseButton.addEventListener('click', function() {
         pauseButton.setAttribute("data", "Pause");
     }
 
-    isPaused = !isPaused;
+    game.togglePause();
     console.log('Pause Button is Pressed');
 });
 
@@ -79,6 +65,10 @@ let gapAngle = {value: null};
 let arcSpeed = {value: null};
 
 let ballRadius = {value: null};
+let deltaLimit = {value: null};
+let bounceFactor = {value: null};
+let massMultiplier = {value: null};
+// const massMultiplier = 0.0001;
 
 initializeSlider('slider1', 'input1', numArcs);
 initializeSlider('slider2', 'input2', arcGap);
@@ -87,74 +77,24 @@ initializeSlider('slider4', 'input4', gapAngle);
 initializeSlider('slider5', 'input5', arcSpeed);
 
 initializeSlider('slider6', 'input6', ballRadius);
+initializeSlider('slider7', 'input7', deltaLimit);
+initializeSlider('slider8', 'input8', bounceFactor);
+initializeSlider('slider9', 'input9', massMultiplier);
 
 initializeGame();
 
-function animate() {
-    console.log(arcSpeed.value);
-    if (isPaused) {
-        requestAnimationFrame(animate);
-        return;
-    }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    //shadowBall opacity decrease
-    shadowBalls = shadowBalls.filter(ball => ball.opacity > 0);
-    shadowBalls.forEach(ball => {
-        ball.iterate();
-    });
-
-    //ball movement
-    ball.move(arcs);
-
-    //shadowBall adding
-    shadowBalls.push(new ShadowBall(ball.y, ball.x, ball.ballRadius, 0.8));
-
-    arcs = arcs.filter(arc => {
-        if (arc.hasGoneThrough(ball.y, ball.x, ball.ballRadius)) {
-            onArcPassed(arc);
-            return false;
-        }
-        return true;
-    });
-
-
-    drawScore(centerY + 10, centerX - 15, ctx, arcs.length);
-
-    //arc, shadow, ball drawing
-    arcs.forEach(arc => arc.draw(ctx));
-    shadowBalls.forEach(ball => ball.draw(ctx));
-    ball.draw(ctx);
-
-    requestAnimationFrame(animate);
-
-    //pauseGame(5);
-}
-
 function initializeGame() {
-    shadowBalls = [];
-    arcs = [];
-    //arcs
-    for (let i = 0; i < numArcs.value; i++) {
-        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap.value + arcThickness.value), gapAngle.value,
-            arcSpeed.value / 10000 + i * arcSpeed.value / 10000 / 5, arcThickness.value));
-    }
-    //ball
-    ball = new Ball(centerY + 10, centerX, ballRadius.value, deltaLimit, canvas, bounceFactor, massMultiplier);
-
-    isPaused = false;
+    game.newGame(
+        numArcs.value / 1,
+        arcGap.value / 1,
+        arcThickness.value / 1,
+        gapAngle.value / 1,
+        arcSpeed.value / 10000,
+        ballRadius.value / 1,
+        deltaLimit.value / 1,
+        bounceFactor.value / 100,
+        massMultiplier.value / 1000000
+    );
 }
 
-async function pauseGame(ms) {
-    isPaused = true;
-    await sleep(ms);
-    isPaused = false;
-}
-
-function onArcPassed(arc) {
-    //console.log("Arc is passed", arc);
-    ball.setRadius(2);
-}
-
-animate();
+game.animate();

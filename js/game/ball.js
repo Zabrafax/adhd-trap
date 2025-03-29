@@ -31,6 +31,7 @@ export class Ball {
     }
 
     move(arcs) {
+        console.log(this.bounceFactor);
         this.dy += this.gravity;
 
         if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
