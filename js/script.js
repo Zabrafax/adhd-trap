@@ -71,6 +71,58 @@ pauseButton.addEventListener('click', function() {
     console.log('Pause Button is Pressed');
 });
 
+const slider = document.getElementById('slider1');
+const input = document.getElementById("input1");
+input.min = slider.min;
+input.max = slider.max;
+input.step = slider.step;
+input.value = slider.value;
+
+slider.addEventListener('input', () => {
+    input.value = slider.value;
+});
+
+input.addEventListener('input', () => {
+    inputChange(input);
+});
+
+input.addEventListener('blur', () => {
+    if (input.value.trim() === "") {
+        const minValue = parseInt(slider.min);
+        const maxValue = parseInt(slider.max);
+        input.value = (minValue + maxValue) / 2;
+        slider.value = input.value;
+    } else {
+        inputChange(input);
+    }
+});
+
+input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        if (input.value.trim() === "") {
+            const minValue = parseInt(input.min);
+            const maxValue = parseInt(input.max);
+            input.value = (minValue + maxValue) / 2;
+            slider.value = input.value;
+        } else {
+            inputChange(input);
+        }
+    }
+});
+
+function inputChange(input) {
+    const minValue = parseInt(input.min);
+    const maxValue = parseInt(input.max);
+
+    if (input.value >= minValue && input.value <= maxValue) {
+        slider.value = input.value;
+    } else {
+        input.value = input.value < minValue ? minValue : maxValue;
+
+        slider.value = input.value;
+    }
+}
+
 initializeGame();
 
 function animate() {

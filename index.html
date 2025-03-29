@@ -6,6 +6,7 @@
     <title>ADHD Trap</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/sliders.css">
 </head>
 <body>
     <header class="header">
@@ -25,6 +26,28 @@
                     <button class="button__primary violet-theme" id="startButton">Create New</button>
                     <button class="button__secondary pause__btn red-theme" id="pauseButton" data="Pause"></button>
                 </div>
+
+                <!-- Sliders -->
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <div class="slider__wrapper violet-theme">
+                            <label for="slider1" class="settings__slider__label">Arcs Count:</label>
+                            <input type="range" id="slider1" class="settings__slider" min="1" max="40" step="1" value="20">
+                            <input type="number" id="input1" class="settings__slider__input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <div class="slider__wrapper violet-theme">
+                            <label for="slider2" class="settings__slider__label">Arcs Count:</label>
+                            <input type="range" id="slider2" class="settings__slider">
+                            <input type="number" id="input2" class="settings__slider__input" min="0" max="100" step="1" value="50">
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>

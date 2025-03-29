@@ -139,6 +139,7 @@ main {
 
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .settings__container h1 {
@@ -153,6 +154,11 @@ main {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+
+.slider__container {
+    width: 100%;
+    height: fit-content;
 }
 
 footer {
