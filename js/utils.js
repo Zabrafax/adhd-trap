@@ -3,8 +3,10 @@ export function random(min, max) {
 }
 
 export function drawScore(y, x, ctx, score) {
-    ctx.font = "30px Arial";
+    ctx.font = "50px Arial";
     ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     ctx.fillText(score, x, y);
 }
 

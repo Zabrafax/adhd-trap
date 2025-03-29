@@ -4,7 +4,6 @@ import {Game} from "./game/game.js";
 const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
 const ctx = canvasElement.getContext("2d");
-let centerX, centerY, radius;
 
 // const numArcs = 20;
 // const arcGap = 15;

@@ -98,7 +98,7 @@ export class Game {
         });
 
 
-        drawScore(this.centerY + 10, this.centerX - 15, this.ctx, this.arcs.length);
+        drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
 
         //arc, shadow, ball drawing
         this.arcs.forEach(arc => arc.draw(this.ctx));
