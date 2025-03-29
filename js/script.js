@@ -2,17 +2,18 @@ import {Arc} from './arc.js';
 import {Ball} from "./ball.js";
 import {ShadowBall} from "./shadowBall.js";
 import {drawScore, sleep} from "./utils.js";
+import {initializeSlider} from "./slider.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let centerX, centerY, radius;
 let arcs = [];
-const numArcs = 20;
-const arcGap = 15;
-const gapAngle = 30;
+// const numArcs = 20;
+// const arcGap = 15;
+// const gapAngle = 30;
 const arcSpeed = 0.002;
-const arcThickness = 7;
+const arcThickness = 5;
 
 let ball;
 const ballRadius = 15;
@@ -71,59 +72,13 @@ pauseButton.addEventListener('click', function() {
     console.log('Pause Button is Pressed');
 });
 
-const slider = document.getElementById('slider1');
-const input = document.getElementById("input1");
-const defaultValue = slider.value;
+let numArcs = {value: null};
+let arcGap = {value: null};
+let gapAngle = {value: null};
 
-input.min = slider.min;
-input.max = slider.max;
-input.step = slider.step;
-input.value = slider.value;
-
-slider.addEventListener('input', () => {
-    input.value = slider.value;
-});
-
-input.addEventListener('input', () => {
-    console.log(input.value);
-    inputChange(input);
-});
-
-input.addEventListener('blur', () => {
-    if (input.value.trim() === "") {
-        const minValue = parseInt(slider.min);
-        const maxValue = parseInt(slider.max);
-        input.value = defaultValue;
-        slider.value = input.value;
-    } else {
-        inputChange(input);
-    }
-});
-
-input.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        if (input.value.trim() === "") {
-            const minValue = parseInt(slider.min);
-            const maxValue = parseInt(slider.max);
-            input.value = defaultValue;
-            slider.value = input.value;
-        } else {
-            inputChange(input);
-        }
-    }
-});
-
-function inputChange(input) {
-    const minValue = parseInt(slider.min);
-    const maxValue = parseInt(slider.max);
-
-    if (input.value >= minValue && input.value <= maxValue) {
-        slider.value = input.value;
-    } else if (!(input.value.trim() === "")) {
-        input.value = input.value < minValue ? minValue : maxValue;
-        slider.value = input.value;
-    }
-}
+initializeSlider('slider1', 'input1', numArcs);
+initializeSlider('slider2', 'input2', arcGap);
+initializeSlider('slider3', 'input3', gapAngle);
 
 initializeGame();
 
@@ -172,8 +127,8 @@ function initializeGame() {
     shadowBalls = [];
     arcs = [];
     //arcs
-    for (let i = 0; i < numArcs; i++) {
-        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap + arcThickness), gapAngle,
+    for (let i = 0; i < numArcs.value; i++) {
+        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap.value + arcThickness), gapAngle.value,
             arcSpeed + i * arcSpeed / 5, arcThickness));
     }
     //ball

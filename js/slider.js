@@ -1,7 +1,9 @@
-function initSlider(sliderId, inputId) {
+function initializeSlider(sliderId, inputId, variable) {
     const slider = document.getElementById(sliderId);
     const input = document.getElementById(inputId);
     const defaultValue = slider.value;
+
+    variable.value = parseInt(defaultValue);
 
     input.min = slider.min;
     input.max = slider.max;
@@ -10,18 +12,20 @@ function initSlider(sliderId, inputId) {
 
     slider.addEventListener('input', () => {
         input.value = slider.value;
+        variable.value = parseInt(slider.value);
     });
 
     input.addEventListener('input', () => {
-        inputChange(input, slider);
+        inputChange(input, slider, variable);
     });
 
     input.addEventListener('blur', () => {
         if (input.value.trim() === "") {
             input.value = defaultValue;
             slider.value = input.value;
+            variable.value = parseInt(slider.value);
         } else {
-            inputChange(input, slider);
+            inputChange(input, slider, variable);
         }
     });
 
@@ -30,24 +34,26 @@ function initSlider(sliderId, inputId) {
             if (input.value.trim() === "") {
                 input.value = defaultValue;
                 slider.value = input.value;
+                variable.value = parseInt(slider.value);
             } else {
-                inputChange(input, slider);
+                inputChange(input, slider, variable);
             }
         }
     });
 }
 
-function inputChange(input, slider) {
+function inputChange(input, slider, variable) {
     const minValue = parseInt(slider.min);
     const maxValue = parseInt(slider.max);
 
-    let inputValue = parseInt(input.value);
-    if (isNaN(inputValue)) {
-        inputValue = (minValue + maxValue) / 2; // Если не число, ставим среднее
+    if (input.value >= minValue && input.value <= maxValue) {
+        slider.value = input.value;
+        variable.value = input.value;
+    } else if (!(input.value.trim() === "")) {
+        input.value = input.value < minValue ? minValue : maxValue;
+        slider.value = input.value;
+        variable.value = input.value;
     }
-
-    inputValue = Math.max(minValue, Math.min(inputValue, maxValue)); // Ограничиваем диапазоном
-
-    slider.value = inputValue;
-    input.value = inputValue;
 }
+
+export { initializeSlider };
