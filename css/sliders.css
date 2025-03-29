@@ -1,6 +1,6 @@
 .slider__wrapper {
     width: 100%;
-    height: 50px;
+    height: 30px;
     padding: 0;
 
     display: flex;
@@ -37,7 +37,7 @@
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
-    height: 40px;
+    height: 30px;
 
     background: var(--button-color-pressed, var(--color-button-default-3));
     cursor: pointer;

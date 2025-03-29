@@ -1,4 +1,4 @@
-import {random} from "./utils.js";
+import {random} from "../utils.js";
 
 export class Ball {
     constructor(y, x, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier) {

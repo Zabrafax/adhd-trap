@@ -1,6 +1,6 @@
-import {Arc} from './arc.js';
-import {Ball} from "./ball.js";
-import {ShadowBall} from "./shadowBall.js";
+import {Arc} from './game/arc.js';
+import {Ball} from "./game/ball.js";
+import {ShadowBall} from "./game/shadowBall.js";
 import {drawScore, sleep} from "./utils.js";
 import {initializeSlider} from "./slider.js";
 
@@ -11,12 +11,12 @@ let centerX, centerY, radius;
 let arcs = [];
 // const numArcs = 20;
 // const arcGap = 15;
+// const arcThickness = 5;
 // const gapAngle = 30;
-const arcSpeed = 0.002;
-const arcThickness = 5;
+// const arcSpeed = 0.002;
 
 let ball;
-const ballRadius = 15;
+// const ballRadius = 15;
 const deltaLimit = 7;
 const bounceFactor = 1.01;
 const massMultiplier = 0.0001;
@@ -74,15 +74,24 @@ pauseButton.addEventListener('click', function() {
 
 let numArcs = {value: null};
 let arcGap = {value: null};
+let arcThickness = {value: null};
 let gapAngle = {value: null};
+let arcSpeed = {value: null};
+
+let ballRadius = {value: null};
 
 initializeSlider('slider1', 'input1', numArcs);
 initializeSlider('slider2', 'input2', arcGap);
-initializeSlider('slider3', 'input3', gapAngle);
+initializeSlider('slider3', 'input3', arcThickness);
+initializeSlider('slider4', 'input4', gapAngle);
+initializeSlider('slider5', 'input5', arcSpeed);
+
+initializeSlider('slider6', 'input6', ballRadius);
 
 initializeGame();
 
 function animate() {
+    console.log(arcSpeed.value);
     if (isPaused) {
         requestAnimationFrame(animate);
         return;
@@ -128,11 +137,11 @@ function initializeGame() {
     arcs = [];
     //arcs
     for (let i = 0; i < numArcs.value; i++) {
-        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap.value + arcThickness), gapAngle.value,
-            arcSpeed + i * arcSpeed / 5, arcThickness));
+        arcs.push(new Arc(centerY, centerX, radius + i * (arcGap.value + arcThickness.value), gapAngle.value,
+            arcSpeed.value / 10000 + i * arcSpeed.value / 10000 / 5, arcThickness.value));
     }
     //ball
-    ball = new Ball(centerY + 10, centerX, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier);
+    ball = new Ball(centerY + 10, centerX, ballRadius.value, deltaLimit, canvas, bounceFactor, massMultiplier);
 
     isPaused = false;
 }

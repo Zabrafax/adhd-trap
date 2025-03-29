@@ -72,7 +72,7 @@ export class Arc {
     }
 
     drawTick(ctx, angle) {
-        const tickLength = 15;
+        const tickLength = this.arcThickness * 3;
 
         const x = this.centerX + (this.radius - tickLength / 2) * Math.cos(angle);
         const y = this.centerY + (this.radius - tickLength / 2) * Math.sin(angle);

@@ -22,16 +22,17 @@
 
             <div class="settings__container">
                 <h1>Bouncy Ball Trap</h1>
-                <div class="settings__element">
+                <div class="settings__element start__buttons">
                     <button class="button__primary violet-theme" id="startButton">Create New</button>
                     <button class="button__secondary pause__btn red-theme" id="pauseButton" data="Pause"></button>
                 </div>
 
+                <h1 class="settings__label">Arcs Settings:</h1>
                 <!-- Sliders -->
                 <div class="settings__element">
                     <div class="slider__container">
+                        <label for="slider1" class="settings__slider__label">Arc count:</label>
                         <div class="slider__wrapper violet-theme">
-                            <label for="slider1" class="settings__slider__label">Arc count:</label>
                             <input type="range" id="slider1" class="settings__slider" min="1" max="100" step="1" value="20">
                             <input type="number" id="input1" class="settings__slider__input">
                         </div>
@@ -40,8 +41,8 @@
 
                 <div class="settings__element">
                     <div class="slider__container">
+                        <label for="slider2" class="settings__slider__label">Gap between arcs:</label>
                         <div class="slider__wrapper violet-theme">
-                            <label for="slider2" class="settings__slider__label">Gap between arcs:</label>
                             <input type="range" id="slider2" class="settings__slider" min="0" max="50" step="1" value="15">
                             <input type="number" id="input2" class="settings__slider__input">
                         </div>
@@ -50,10 +51,41 @@
 
                 <div class="settings__element">
                     <div class="slider__container">
+                        <label for="slider3" class="settings__slider__label">Arcs thickness:</label>
                         <div class="slider__wrapper violet-theme">
-                            <label for="slider3" class="settings__slider__label">Arc gap angle:</label>
-                            <input type="range" id="slider3" class="settings__slider" min="5" max="355" step="1" value="30">
+                            <input type="range" id="slider3" class="settings__slider" min="1" max="20" step="1" value="5">
                             <input type="number" id="input3" class="settings__slider__input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <label for="slider4" class="settings__slider__label">Arc gap angle:</label>
+                        <div class="slider__wrapper violet-theme">
+                            <input type="range" id="slider4" class="settings__slider" min="5" max="355" step="1" value="30">
+                            <input type="number" id="input4" class="settings__slider__input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <label for="slider5" class="settings__slider__label">Arcs speed:</label>
+                        <div class="slider__wrapper violet-theme">
+                            <input type="range" id="slider5" class="settings__slider" min="1" max="200" step="1" value="20">
+                            <input type="number" id="input5" class="settings__slider__input">
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="settings__label">Ball Settings:</h1>
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <label for="slider6" class="settings__slider__label">Ball radius:</label>
+                        <div class="slider__wrapper violet-theme">
+                            <input type="range" id="slider6" class="settings__slider" min="5" max="100" step="1" value="20">
+                            <input type="number" id="input6" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
