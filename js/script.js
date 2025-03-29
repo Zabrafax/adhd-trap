@@ -73,6 +73,8 @@ pauseButton.addEventListener('click', function() {
 
 const slider = document.getElementById('slider1');
 const input = document.getElementById("input1");
+const defaultValue = slider.value;
+
 input.min = slider.min;
 input.max = slider.max;
 input.step = slider.step;
@@ -83,6 +85,7 @@ slider.addEventListener('input', () => {
 });
 
 input.addEventListener('input', () => {
+    console.log(input.value);
     inputChange(input);
 });
 
@@ -90,7 +93,7 @@ input.addEventListener('blur', () => {
     if (input.value.trim() === "") {
         const minValue = parseInt(slider.min);
         const maxValue = parseInt(slider.max);
-        input.value = (minValue + maxValue) / 2;
+        input.value = defaultValue;
         slider.value = input.value;
     } else {
         inputChange(input);
@@ -100,9 +103,9 @@ input.addEventListener('blur', () => {
 input.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         if (input.value.trim() === "") {
-            const minValue = parseInt(input.min);
-            const maxValue = parseInt(input.max);
-            input.value = (minValue + maxValue) / 2;
+            const minValue = parseInt(slider.min);
+            const maxValue = parseInt(slider.max);
+            input.value = defaultValue;
             slider.value = input.value;
         } else {
             inputChange(input);
@@ -111,14 +114,13 @@ input.addEventListener('keydown', (event) => {
 });
 
 function inputChange(input) {
-    const minValue = parseInt(input.min);
-    const maxValue = parseInt(input.max);
+    const minValue = parseInt(slider.min);
+    const maxValue = parseInt(slider.max);
 
     if (input.value >= minValue && input.value <= maxValue) {
         slider.value = input.value;
-    } else {
+    } else if (!(input.value.trim() === "")) {
         input.value = input.value < minValue ? minValue : maxValue;
-
         slider.value = input.value;
     }
 }
