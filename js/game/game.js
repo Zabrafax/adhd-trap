@@ -100,6 +100,8 @@ export class Game {
         //ball
         this.ball = new Ball(this.centerY + 10, this.centerX, this.ballRadius, this.deltaLimit,
             this.canvasElement, this.bounceFactor, this.massMultiplier);
+
+        this.isPaused = false;
     }
 
     animate() {
