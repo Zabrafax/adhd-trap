@@ -1,7 +1,7 @@
 import { Arc } from './arc.js';
 import { Ball } from './ball.js';
 import { ShadowBall } from './shadowBall.js';
-import { drawScore, sleep } from '../utils.js';
+import {drawScore, hexToRGBA, sleep} from '../utils.js';
 
 export class Game {
     ctx;
@@ -16,6 +16,7 @@ export class Game {
     arcThickness;
     gapAngle;
     arcSpeed;
+    arcSpeedDiff;
 
     //ball
     ballRadius;
@@ -33,6 +34,9 @@ export class Game {
     spinOnPass = false;
     increaseBall = false;
 
+    shadowColor;
+    backgroundColor;
+
     constructor() {
         this.animate = this.animate.bind(this);
     }
@@ -46,6 +50,11 @@ export class Game {
         this.radius = Math.min(canvasElement.width, canvasElement.height) / 20;
     }
 
+    setColors(shadowColor, backgroundColor) {
+        this.shadowColor = shadowColor;
+        this.backgroundColor = backgroundColor;
+    }
+
     setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall) {
         this.directionChange = directionChange;
         this.twoSideSpin = twoSideSpin;
@@ -53,13 +62,14 @@ export class Game {
         this.increaseBall = increaseBall;
     }
 
-    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier) {
+    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier, arcSpeedDiff) {
         //arcs
         this.numArcs = numArcs;
         this.arcGap = arcGap;
         this.arcThickness = arcThickness;
         this.gapAngle = gapAngle;
         this.arcSpeed = arcSpeed;
+        this.arcSpeedDiff = arcSpeedDiff;
 
         //ball
         this.ballRadius = ballRadius;
@@ -72,7 +82,7 @@ export class Game {
         this.ball = null;
         //arcs
         for (let i = 0; i < this.numArcs; i++) {
-            this.rotationSpeed = this.arcSpeed + i * this.arcSpeed / 15;
+            this.rotationSpeed = this.arcSpeed + i * this.arcSpeed * arcSpeedDiff;
             if(this.twoSideSpin) {
                 if(i % 2 === 1){
                     this.rotationSpeed = -this.rotationSpeed;
@@ -101,6 +111,9 @@ export class Game {
 
         this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 
+        this.ctx.fillStyle = hexToRGBA(this.backgroundColor);
+        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+
         //shadowBall opacity decrease
         this.shadowBalls = this.shadowBalls.filter(ball => ball.opacity > 0);
         this.shadowBalls.forEach(ball => {
@@ -111,7 +124,7 @@ export class Game {
         this.ball.move(this.arcs);
 
         //shadowBall adding
-        this.shadowBalls.push(new ShadowBall(this.ball.y, this.ball.x, this.ball.ballRadius, 0.8));
+        this.shadowBalls.push(new ShadowBall(this.ball.y, this.ball.x, this.ball.ballRadius, 0.8, this.shadowColor));
 
         this.arcs = this.arcs.filter(arc => {
             if (arc.hasGoneThrough(this.ball.y, this.ball.x, this.ball.ballRadius)) {

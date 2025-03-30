@@ -14,7 +14,6 @@ function resizeCanvas() {
     game.updateCtx(canvasElement, ctx);
 }
 resizeCanvas();
-//window.addEventListener("resize", resizeCanvas);
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', function() {
@@ -49,6 +48,7 @@ let arcGap = {value: null};
 let arcThickness = {value: null};
 let gapAngle = {value: null};
 let arcSpeed = {value: null};
+let arcSpeedDiff = {value: null};
 
 let ballRadius = {value: null};
 let deltaLimit = {value: null};
@@ -61,6 +61,7 @@ initializeSlider('slider2', 'input2', arcGap);
 initializeSlider('slider3', 'input3', arcThickness);
 initializeSlider('slider4', 'input4', gapAngle);
 initializeSlider('slider5', 'input5', arcSpeed);
+initializeSlider('slider10', 'input10', arcSpeedDiff);
 
 initializeSlider('slider6', 'input6', ballRadius);
 initializeSlider('slider7', 'input7', deltaLimit);
@@ -100,11 +101,26 @@ document.getElementById("toggle4").addEventListener("change", function () {
     console.log("increaseBall:", increaseBall);
 });
 
+///////////////////////////////////////////////// Colors //////////////////////////////////////
+
+let shadowColor = document.getElementById("color1").value;
+const colorPicker1 = document.getElementById("color1");
+colorPicker1.addEventListener("input", (event) => {
+    shadowColor = event.target.value;
+});
+
+let backgroundColor = document.getElementById("color2").value;
+const colorPicker2 = document.getElementById("color2");
+colorPicker2.addEventListener("input", (event) => {
+    backgroundColor = event.target.value;
+});
+
 ////////////////////////////////////////////////////// Game /////////////////////////////////
 
 initializeGame();
 
 function initializeGame() {
+    game.setColors(shadowColor, backgroundColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall);
     game.newGame(
         numArcs.value / 1,
@@ -116,6 +132,7 @@ function initializeGame() {
         deltaLimit.value / 1000,
         bounceFactor.value / 100,
         massMultiplier.value / 1000000 * 0.8,
+        arcSpeedDiff.value / 100
     );
 }
 

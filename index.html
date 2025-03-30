@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/sliders.css">
     <link rel="stylesheet" href="css/switches.css">
+    <link rel="stylesheet" href="css/colors.css">
 </head>
 <body>
     <header class="header">
@@ -72,6 +73,16 @@
                         <div class="slider__wrapper violet-theme">
                             <input type="range" id="slider5" class="settings__slider" min="1" max="200" step="1" value="20">
                             <input type="number" id="input5" class="settings__slider__input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings__element">
+                    <div class="slider__container">
+                        <label for="slider10" class="settings__slider__label">Arc speed difference %:</label>
+                        <div class="slider__wrapper violet-theme">
+                            <input type="range" id="slider10" class="settings__slider" min="0" max="200" step="1" value="10">
+                            <input type="number" id="input10" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
@@ -159,8 +170,25 @@
                 <canvas class="canvas__element" id="canvas"></canvas>
             </div>
 
-            <div class="color__container">
-                <input type="color" class="color__input" id="color">
+            <div class="colors__container">
+                <h1 class="colors__label">Colors:</h1>
+
+                <div class="color__container">
+                    <div class="color__wrapper">
+                        <label for="color1">Shadow color:</label>
+                        <input type="color" class="color__input" id="color1" value="#20C3C5">
+                    </div>
+
+                    <div class="color__wrapper">
+                        <label for="color2">Background color:</label>
+                        <input type="color" class="color__input" id="color2" value="#000000">
+                    </div>
+
+<!--                    <div class="color__wrapper">-->
+<!--                        <label for="color3">Shadow color:</label>-->
+<!--                        <input type="color" class="color__input" id="color3">-->
+<!--                    </div>-->
+                </div>
             </div>
 
         </div>
