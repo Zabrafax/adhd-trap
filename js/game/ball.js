@@ -21,7 +21,8 @@ export class Ball {
     }
 
     setRadius(radiusChange) {
-        this.deltaLimit *= (1 + radiusChange / this._ballRadius / 4);
+        this.deltaLimit *= (1 + radiusChange / this._ballRadius);
+        this.calculateGravity();
         this._ballRadius += radiusChange;
     }
 
@@ -31,7 +32,8 @@ export class Ball {
     }
 
     move(arcs) {
-        console.log(this.bounceFactor);
+        //console.log(this.bounceFactor);
+        console.log(this.deltaLimit);
         this.dy += this.gravity;
 
         if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
@@ -73,17 +75,17 @@ export class Ball {
                 let newDx = tangentX * dotProductTangent + normalX * -dotProductNormal;
                 let newDy = tangentY * dotProductTangent + normalY * -dotProductNormal;
 
-                const epsilon = 0.5;
+                const epsilon = 6;
                 if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
                     this.dx = tangentX * dotProductTangent;
                     this.dy = tangentY * dotProductTangent;
 
 
-                    const angleDeviation = 10 * Math.PI / 180 * Math.sign(random(-1, 1));
+                    const angleDeviation = 30 * Math.PI / 180 * Math.sign(random(-1, 1));
 
                     const normalAngle = Math.atan2(normalY, normalX);
 
-                    const newNormalAngle = normalAngle + angleDeviation;  // Поворот на 15 градусов
+                    const newNormalAngle = normalAngle + angleDeviation;
 
                     const newNormalX = Math.cos(newNormalAngle);
                     const newNormalY = Math.sin(newNormalAngle);

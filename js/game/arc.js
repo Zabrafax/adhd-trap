@@ -5,6 +5,7 @@ export class Arc {
         this.radius = radius;
         this.gapAngle = gapAngle;
         this.rotationSpeed = rotationSpeed;
+        this.holdSpeed = rotationSpeed;
         this.arcThickness = arcThickness;
         this.angle = 0;
     }
@@ -87,5 +88,17 @@ export class Arc {
         ctx.lineWidth = this.arcThickness / 2;
         ctx.stroke();
         ctx.closePath();
+    }
+
+    reverseDirection() {
+        this.rotationSpeed = -this.rotationSpeed;
+    }
+
+    holdSpin() {
+        this.rotationSpeed = 0;
+    }
+
+    startSpin() {
+        this.rotationSpeed = this.holdSpeed;
     }
 }

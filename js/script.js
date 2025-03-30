@@ -80,9 +80,45 @@ initializeSlider('slider7', 'input7', deltaLimit);
 initializeSlider('slider8', 'input8', bounceFactor);
 initializeSlider('slider9', 'input9', massMultiplier);
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+let directionChange = document.getElementById("toggle1").checked;
+let twoSideSpin = document.getElementById("toggle2").checked;
+let spinOnPass = document.getElementById("toggle3").checked;
+let increaseBall = document.getElementById("toggle4").checked;
+
+document.getElementById("toggle1").addEventListener("change", function () {
+    directionChange = this.checked;
+    //console.log("directionChange:", directionChange);
+});
+
+document.getElementById("toggle2").addEventListener("change", function () {
+    twoSideSpin = this.checked;
+    console.log("twoSideSpin:", twoSideSpin);
+});
+
+document.getElementById("toggle3").addEventListener("change", function () {
+    spinOnPass = this.checked;
+    if(this.checked) {
+        document.getElementById("toggle2").closest(".switch").classList.add("switch--disabled");
+        document.getElementById("toggle2").checked = false;
+    } else {
+        document.getElementById("toggle2").closest(".switch").classList.remove("switch--disabled");
+    }
+    //console.log("spinOnPass:", spinOnPass);
+});
+
+document.getElementById("toggle4").addEventListener("change", function () {
+    increaseBall = this.checked;
+    console.log("increaseBall:", increaseBall);
+});
+
+////////////////////////////////////////////////////// Game /////////////////////////////////
+
 initializeGame();
 
 function initializeGame() {
+    game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall);
     game.newGame(
         numArcs.value / 1,
         arcGap.value / 1,
@@ -92,7 +128,7 @@ function initializeGame() {
         ballRadius.value / 1,
         deltaLimit.value / 1,
         bounceFactor.value / 100,
-        massMultiplier.value / 1000000
+        massMultiplier.value / 1000000,
     );
 }
 

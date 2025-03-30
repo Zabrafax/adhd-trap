@@ -28,6 +28,11 @@ export class Game {
     ball = null;
     isPaused = false;
 
+    directionChange = false;
+    twoSideSpin = false;
+    spinOnPass = false;
+    increaseBall = false;
+
     constructor() {
         this.animate = this.animate.bind(this);
     }
@@ -39,6 +44,13 @@ export class Game {
         this.centerX = canvasElement.width / 2;
         this.centerY = canvasElement.height / 2;
         this.radius = Math.min(canvasElement.width, canvasElement.height) / 20;
+    }
+
+    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall) {
+        this.directionChange = directionChange;
+        this.twoSideSpin = twoSideSpin;
+        this.spinOnPass = spinOnPass;
+        this.increaseBall = increaseBall;
     }
 
     newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier) {
@@ -60,8 +72,20 @@ export class Game {
         this.ball = null;
         //arcs
         for (let i = 0; i < this.numArcs; i++) {
-            this.arcs.push(new Arc(this.centerY, this.centerX, this.radius + i * (this.arcGap + this.arcThickness),
-                this.gapAngle, this.arcSpeed + i * this.arcSpeed / 5, this.arcThickness));
+            this.rotationSpeed = this.arcSpeed + i * this.arcSpeed / 15;
+            if(this.twoSideSpin) {
+                if(i % 2 === 1){
+                    this.rotationSpeed = -this.rotationSpeed;
+                }
+            }
+            this.newArc = new Arc(this.centerY, this.centerX, this.radius + i * (this.arcGap + this.arcThickness),
+                this.gapAngle, this.rotationSpeed, this.arcThickness);
+            if(this.spinOnPass) {
+                if(i !== 0) {
+                    this.newArc.holdSpin();
+                }
+            }
+            this.arcs.push(this.newArc);
         }
         //ball
         this.ball = new Ball(this.centerY + 10, this.centerX, this.ballRadius, this.deltaLimit,
@@ -118,7 +142,20 @@ export class Game {
 
     onArcPassed(arc) {
         //console.log("Arc is passed", arc);
-        this.ball.setRadius(2);
+        if(this.spinOnPass) {
+            if (this.arcs.length > 1) {
+                //1 because 0 isn't deleted yet
+                this.arcs[1].startSpin();
+            }
+        }
+        if(this.directionChange) {
+            this.arcs.forEach(arc => {
+                arc.reverseDirection();
+            })
+        }
+        if(this.increaseBall) {
+            this.ball.setRadius(2);
+        }
     }
 
     togglePause() {
