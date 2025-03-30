@@ -1,0 +1,72 @@
+.switch__wrapper {
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.switch__wrapper > label {
+    margin-right: 16px;
+    font-size: 24px;
+}
+
+.switch-violet {
+    --color-switch-off: var(--color-button-red-2);
+    --color-switch-on: var(--color-button-violet-2);
+    --color-switch-off-shadow: var(--color-button-red-3);
+    --color-switch-on-shadow: var(--color-button-violet-3);
+}
+
+.switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-switch-off);
+    border-radius: 8px;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px;
+}
+
+.switch label:hover {
+    box-shadow: 0 0 30px var(--color-switch-off-shadow);
+}
+
+.switch label:before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 22px;
+    border-radius: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+.switch input:checked + label {
+    background-color: var(--color-switch-on);
+}
+
+.switch input:checked:hover + label {
+    box-shadow: 0 0 30px var(--color-switch-on-shadow);
+}
+
+.switch input:checked + label:before {
+    transform: translateX(37px);
+}

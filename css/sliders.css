@@ -63,7 +63,7 @@
     font-weight: bold;
     color: var(--button-color-text, var(--text-button-default));
     border: none;
-    border-radius: 16px;
+    border-radius: 8px;
     background-color: var(--color-background);
 }
 

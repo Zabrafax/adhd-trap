@@ -175,6 +175,17 @@ main {
     height: fit-content;
 }
 
+.switch__container {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
 footer {
     height: 5rem;
     padding: 1rem 2rem;
