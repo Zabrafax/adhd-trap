@@ -1,8 +1,8 @@
 import {random} from "../utils.js";
 
 export class Ball {
-    constructor(y, x, ballRadius, deltaLimit, canvas, bounceFactor, massMultiplier) {
-        this.deltaLimit = deltaLimit;
+    constructor(y, x, ballRadius, deltaLimitFactor, canvas, bounceFactor, massMultiplier) {
+        this.deltaLimitFactor = deltaLimitFactor;
         this.canvas = canvas;
         this.dx = random(-2, 2);
         this.dy = random(-2, 2);
@@ -12,43 +12,37 @@ export class Ball {
         this._x = x;
         this._ballRadius = ballRadius;
         this.gravity = 0;
+        this.deltaLimit = 0;
 
-        this.calculateGravity();
+        this.calculateParam();
     }
 
-    calculateGravity() {
+    calculateParam() {
         this.gravity = this.massMultiplier * this._ballRadius * this._ballRadius * Math.PI;
+        this.deltaLimit = this.deltaLimitFactor * this._ballRadius * this._ballRadius * Math.PI;
     }
 
     setRadius(radiusChange) {
-        this.deltaLimit *= (1 + radiusChange / this._ballRadius);
-        this.calculateGravity();
+        this.calculateParam();
         this._ballRadius += radiusChange;
     }
 
     setRadiusAndNewGravity(radius) {
         this._ballRadius = radius;
-        this.calculateGravity();
+        this.calculateParam();
     }
 
     move(arcs) {
+        //console.log(Math.hypot(this.dx, this.dy));
         //console.log(this.bounceFactor);
         console.log(this.deltaLimit);
         this.dy += this.gravity;
 
         if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
             this.dx *= -this.bounceFactor;
-            if(this.dx > this.deltaLimit){
-                this.dx = this.deltaLimit;
-            }
-            this._x = Math.max(this._ballRadius, Math.min(this.canvas.width - this._ballRadius, this._x));
         }
         if (this._y - this._ballRadius < 0 || this._y + this._ballRadius > this.canvas.height) {
             this.dy *= -this.bounceFactor;
-            if(this.dy > this.deltaLimit){
-                this.dy = this.deltaLimit;
-            }
-            this._y = Math.max(this._ballRadius, Math.min(this.canvas.height - this._ballRadius, this._y));
         }
 
         for (let arc of arcs) {
@@ -99,24 +93,26 @@ export class Ball {
                     this.dy = newDy;
                 }
 
+                this.dx *= this.bounceFactor;
+                this.dy *= this.bounceFactor;
+
                 //speed limit
-                if (Math.abs(this.dx *= this.bounceFactor) > this.deltaLimit) {
-                    this.dx = Math.sign(this.dx) * this.deltaLimit;
-                } else {
-                    this.dx *= this.bounceFactor;
+                let speed = Math.hypot(this.dx, this.dy);
+                if (speed > this.deltaLimit) {
+                    let scale = this.deltaLimit / speed;
+                    this.dx *= scale;
+                    this.dy *= scale;
                 }
-
-                if (Math.abs(this.dy *= this.bounceFactor) > this.deltaLimit) {
-                    this.dy = Math.sign(this.dy) * this.deltaLimit;
-                } else {
-                    this.dy *= this.bounceFactor;
-                }
-
-                //this._x = contact.x;
-                //this._y = contact.y;
 
                 return;
             }
+        }
+
+        let speed = Math.hypot(this.dx, this.dy);
+        if (speed > this.deltaLimit) {
+            let scale = this.deltaLimit / speed;
+            this.dx *= scale;
+            this.dy *= scale;
         }
 
         this._x += this.dx;

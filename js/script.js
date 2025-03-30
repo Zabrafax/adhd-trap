@@ -38,7 +38,7 @@ startButton.addEventListener('click', function() {
     }
 
     initializeGame();
-    console.log('Start Button is Pressed');
+    //console.log('Start Button is Pressed');
 });
 
 const pauseButton = document.getElementById('pauseButton');
@@ -54,7 +54,7 @@ pauseButton.addEventListener('click', function() {
     }
 
     game.togglePause();
-    console.log('Pause Button is Pressed');
+    //console.log('Pause Button is Pressed');
 });
 
 let numArcs = {value: null};
@@ -126,7 +126,7 @@ function initializeGame() {
         gapAngle.value / 1,
         arcSpeed.value / 10000,
         ballRadius.value / 1,
-        deltaLimit.value / 1,
+        deltaLimit.value / 1000,
         bounceFactor.value / 100,
         massMultiplier.value / 1000000,
     );
