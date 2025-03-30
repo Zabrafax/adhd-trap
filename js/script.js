@@ -128,7 +128,7 @@ function initializeGame() {
         ballRadius.value / 1,
         deltaLimit.value / 1000,
         bounceFactor.value / 100,
-        massMultiplier.value / 1000000,
+        massMultiplier.value / 1000000 * 0.8,
     );
 }
 
