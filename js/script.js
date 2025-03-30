@@ -5,17 +5,6 @@ const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
 const ctx = canvasElement.getContext("2d");
 
-// const numArcs = 20;
-// const arcGap = 15;
-// const arcThickness = 5;
-// const gapAngle = 30;
-// const arcSpeed = 0.002;
-
-// const ballRadius = 15;
-// const deltaLimit = 7;
-// const bounceFactor = 1.01;
-// const massMultiplier = 0.0001;
-
 let game = new Game();
 
 function resizeCanvas() {

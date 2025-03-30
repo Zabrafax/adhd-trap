@@ -1,15 +1,6 @@
-.switch__wrapper {
-    width: fit-content;
-    height: fit-content;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
 .switch__wrapper > label {
     margin-right: 16px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
