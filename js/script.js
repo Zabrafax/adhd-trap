@@ -11,12 +11,10 @@ function resizeCanvas() {
     canvasElement.width = 1600;
     canvasElement.height = 1600;
 
-    canvasElement.style.width = `${container.clientWidth}px`;
-    canvasElement.style.height = `${container.clientWidth}px`;
     game.updateCtx(canvasElement, ctx);
 }
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+//window.addEventListener("resize", resizeCanvas);
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', function() {
