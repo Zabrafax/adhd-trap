@@ -1,7 +1,9 @@
-import {random} from "../utils.js";
+import {playSound, random} from "../utils.js";
 
 export class Ball {
-    constructor(y, x, ballRadius, deltaLimitFactor, canvas, bounceFactor, massMultiplier) {
+    bounceSound = "../../assets/sounds/xylophone-hit.mp3";
+
+    constructor(y, x, ballRadius, deltaLimitFactor, canvas, bounceFactor, massMultiplier, ballBounceSound) {
         this.deltaLimitFactor = deltaLimitFactor;
         this.canvas = canvas;
         this.dx = random(-2, 2);
@@ -13,6 +15,8 @@ export class Ball {
         this._ballRadius = ballRadius;
         this.gravity = 0;
         this.deltaLimit = 0;
+        this.ballBounceSound = ballBounceSound;
+        console.log(ballBounceSound);
 
         this.calculateParam();
     }
@@ -49,6 +53,8 @@ export class Ball {
             const contact = arc.hasCollisionInside(this._y + this.dy, this._x + this.dx, this._ballRadius);
 
             if (contact) {
+                if(this.ballBounceSound) playSound(this.bounceSound, 0.5);
+
                 const totalDx = contact.x - arc.centerX;
                 const totalDy = contact.y - arc.centerY;
                 const dist = Math.sqrt(totalDx * totalDx + totalDy * totalDy);

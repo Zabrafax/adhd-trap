@@ -79,6 +79,7 @@ let increaseBall = document.getElementById("toggle4").checked;
 let showArcsCount = document.getElementById("toggle5").checked;
 
 let arcPassSound = document.getElementById("toggle6").checked;
+let ballBounceSound = document.getElementById("toggle7").checked;
 
 document.getElementById("toggle1").addEventListener("change", function () {
     directionChange = this.checked;
@@ -116,6 +117,11 @@ document.getElementById("toggle6").addEventListener("change", function () {
     //console.log("arcPassSound:", arcPassSound);
 });
 
+document.getElementById("toggle7").addEventListener("change", function () {
+    ballBounceSound = this.checked;
+    console.log("ballBounceSound:", ballBounceSound);
+});
+
 ///////////////////////////////////////////////// Colors //////////////////////////////////////
 
 let shadowColor = document.getElementById("color1").value;
@@ -135,7 +141,7 @@ colorPicker2.addEventListener("input", (event) => {
 initializeGame();
 
 function initializeGame() {
-    game.setSounds(arcPassSound);
+    game.setSounds(arcPassSound, ballBounceSound);
     game.setColors(shadowColor, backgroundColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
     game.newGame(

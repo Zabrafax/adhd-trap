@@ -36,6 +36,7 @@ export class Game {
     showArcsCount = false;
 
     arcPassSound = false;
+    ballBounceSound = false;
 
     shadowColor;
     backgroundColor;
@@ -56,8 +57,9 @@ export class Game {
         this.radius = Math.min(canvasElement.width, canvasElement.height) / 20;
     }
 
-    setSounds(arcPassSound) {
+    setSounds(arcPassSound, ballBounceSound) {
         this.arcPassSound = arcPassSound;
+        this.ballBounceSound = ballBounceSound;
     }
 
     setColors(shadowColor, backgroundColor) {
@@ -111,7 +113,7 @@ export class Game {
         }
         //ball
         this.ball = new Ball(this.centerY + 10, this.centerX, this.ballRadius, this.deltaLimit,
-            this.canvasElement, this.bounceFactor, this.massMultiplier);
+            this.canvasElement, this.bounceFactor, this.massMultiplier, this.ballBounceSound);
 
         this.isPaused = false;
     }
