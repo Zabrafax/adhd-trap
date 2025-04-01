@@ -16,7 +16,6 @@ export class Ball {
         this.gravity = 0;
         this.deltaLimit = 0;
         this.ballBounceSound = ballBounceSound;
-        console.log(ballBounceSound);
 
         this.calculateParam();
     }

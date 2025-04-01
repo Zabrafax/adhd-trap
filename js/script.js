@@ -119,7 +119,7 @@ document.getElementById("toggle6").addEventListener("change", function () {
 
 document.getElementById("toggle7").addEventListener("change", function () {
     ballBounceSound = this.checked;
-    console.log("ballBounceSound:", ballBounceSound);
+    //console.log("ballBounceSound:", ballBounceSound);
 });
 
 ///////////////////////////////////////////////// Colors //////////////////////////////////////
