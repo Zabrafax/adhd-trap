@@ -78,6 +78,8 @@ let spinOnPass = document.getElementById("toggle3").checked;
 let increaseBall = document.getElementById("toggle4").checked;
 let showArcsCount = document.getElementById("toggle5").checked;
 
+let arcPassSound = document.getElementById("toggle6").checked;
+
 document.getElementById("toggle1").addEventListener("change", function () {
     directionChange = this.checked;
     //console.log("directionChange:", directionChange);
@@ -101,12 +103,17 @@ document.getElementById("toggle3").addEventListener("change", function () {
 
 document.getElementById("toggle4").addEventListener("change", function () {
     increaseBall = this.checked;
-    console.log("increaseBall:", increaseBall);
+    //console.log("increaseBall:", increaseBall);
 });
 
 document.getElementById("toggle5").addEventListener("change", function () {
     showArcsCount = this.checked;
-    console.log("showArcsCount:", showArcsCount);
+    //console.log("showArcsCount:", showArcsCount);
+});
+
+document.getElementById("toggle6").addEventListener("change", function () {
+    arcPassSound = this.checked;
+    //console.log("arcPassSound:", arcPassSound);
 });
 
 ///////////////////////////////////////////////// Colors //////////////////////////////////////
@@ -128,6 +135,7 @@ colorPicker2.addEventListener("input", (event) => {
 initializeGame();
 
 function initializeGame() {
+    game.setSounds(arcPassSound);
     game.setColors(shadowColor, backgroundColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
     game.newGame(

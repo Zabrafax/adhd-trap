@@ -14,8 +14,8 @@ export class Arc {
         let startGap = this.angle;
         let endGap = this.angle + this.gapAngle;
 
-        console.log(startGap);
-        console.log(endGap);
+        // console.log(startGap);
+        // console.log(endGap);
 
         startGap = (startGap + 2 * Math.PI) % (2 * Math.PI);
         endGap = (endGap + 2 * Math.PI) % (2 * Math.PI);
