@@ -62,7 +62,7 @@ export class Game {
         this.increaseBall = increaseBall;
     }
 
-    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier, arcSpeedDiff) {
+    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier, arcSpeedDiff, startAngle) {
         //arcs
         this.numArcs = numArcs;
         this.arcGap = arcGap;
@@ -70,6 +70,7 @@ export class Game {
         this.gapAngle = gapAngle;
         this.arcSpeed = arcSpeed;
         this.arcSpeedDiff = arcSpeedDiff;
+        this.startAngle = startAngle;
 
         //ball
         this.ballRadius = ballRadius;
@@ -89,7 +90,7 @@ export class Game {
                 }
             }
             this.newArc = new Arc(this.centerY, this.centerX, this.radius + i * (this.arcGap + this.arcThickness),
-                this.gapAngle, this.rotationSpeed, this.arcThickness);
+                this.gapAngle, this.rotationSpeed, this.arcThickness, this.startAngle);
             if(this.spinOnPass) {
                 if(i !== 0) {
                     this.newArc.holdSpin();

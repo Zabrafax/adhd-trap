@@ -49,6 +49,7 @@ let arcThickness = {value: null};
 let gapAngle = {value: null};
 let arcSpeed = {value: null};
 let arcSpeedDiff = {value: null};
+let startAngle = {value: null};
 
 let ballRadius = {value: null};
 let deltaLimit = {value: null};
@@ -62,6 +63,7 @@ initializeSlider('slider3', 'input3', arcThickness);
 initializeSlider('slider4', 'input4', gapAngle);
 initializeSlider('slider5', 'input5', arcSpeed);
 initializeSlider('slider10', 'input10', arcSpeedDiff);
+initializeSlider('slider11', 'input11', startAngle);
 
 initializeSlider('slider6', 'input6', ballRadius);
 initializeSlider('slider7', 'input7', deltaLimit);
@@ -132,7 +134,8 @@ function initializeGame() {
         deltaLimit.value / 1000,
         bounceFactor.value / 100,
         massMultiplier.value / 1000000 * 0.8,
-        arcSpeedDiff.value / 100
+        arcSpeedDiff.value / 100,
+        startAngle.value / 1
     );
 }
 

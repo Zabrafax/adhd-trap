@@ -1,18 +1,18 @@
 export class Arc {
-    constructor(centerY, centerX, radius, gapAngle, rotationSpeed, arcThickness) {
+    constructor(centerY, centerX, radius, gapAngle, rotationSpeed, arcThickness, angle) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
-        this.gapAngle = gapAngle;
+        this.gapAngle = gapAngle * Math.PI / 180;
         this.rotationSpeed = rotationSpeed;
         this.holdSpeed = rotationSpeed;
         this.arcThickness = arcThickness;
-        this.angle = 0;
+        this.angle = (angle - 90 - gapAngle / 2) * (Math.PI / 180);
     }
 
     isInGap(angle) {
         let startGap = this.angle;
-        let endGap = this.angle + this.gapAngle * Math.PI / 180;
+        let endGap = this.angle + this.gapAngle;
 
         // console.log("angle: " + angle);
         // console.log("startGap: " + startGap);
@@ -57,14 +57,14 @@ export class Arc {
 
     draw(ctx) {
         ctx.beginPath();
-        ctx.arc(this.centerX, this.centerY, this.radius, this.angle + this.gapAngle * Math.PI / 180,
+        ctx.arc(this.centerX, this.centerY, this.radius, this.angle + this.gapAngle,
             this.angle);
         ctx.strokeStyle = "white";
         ctx.lineWidth = this.arcThickness;
         ctx.stroke();
         ctx.closePath();
 
-        this.drawTick(ctx, this.angle + this.gapAngle * Math.PI / 180);
+        this.drawTick(ctx, this.angle + this.gapAngle);
         this.drawTick(ctx, this.angle);
 
         this.angle += this.rotationSpeed;

@@ -271,6 +271,13 @@ footer p:first-of-type {
         flex-direction: column;
     }
 
+    .colors__container {
+        width: 100%;
+        height: fit-content;
+
+        order: 3;
+    }
+
     .settings__container {
         width: 100%;
         height: fit-content;
@@ -286,12 +293,5 @@ footer p:first-of-type {
         margin-bottom: 1rem;
 
         order: 1;
-    }
-
-    .color__container {
-        width: 100%;
-        height: fit-content;
-
-        order: 3;
     }
 }
