@@ -14,10 +14,19 @@ export class Arc {
         let startGap = this.angle;
         let endGap = this.angle + this.gapAngle;
 
-        // console.log("angle: " + angle);
-        // console.log("startGap: " + startGap);
-        // console.log("endGap: " + endGap);
-        return angle >= startGap && angle <= endGap;
+        console.log(startGap);
+        console.log(endGap);
+
+        startGap = (startGap + 2 * Math.PI) % (2 * Math.PI);
+        endGap = (endGap + 2 * Math.PI) % (2 * Math.PI);
+        angle = (angle + 2 * Math.PI) % (2 * Math.PI);
+
+        if (startGap < endGap) {
+            return angle >= startGap && angle <= endGap;
+        }
+        else {
+            return angle >= startGap || angle <= endGap;
+        }
     }
 
     hasCollisionInside(y, x, ballRadius) {

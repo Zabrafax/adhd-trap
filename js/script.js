@@ -85,7 +85,7 @@ document.getElementById("toggle1").addEventListener("change", function () {
 
 document.getElementById("toggle2").addEventListener("change", function () {
     twoSideSpin = this.checked;
-    console.log("twoSideSpin:", twoSideSpin);
+    //console.log("twoSideSpin:", twoSideSpin);
 });
 
 document.getElementById("toggle3").addEventListener("change", function () {

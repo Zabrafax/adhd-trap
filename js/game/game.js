@@ -1,7 +1,7 @@
 import { Arc } from './arc.js';
 import { Ball } from './ball.js';
 import { ShadowBall } from './shadowBall.js';
-import {drawScore, hexToRGBA, sleep} from '../utils.js';
+import {drawScore, hexToRGBA, playSound, sleep} from '../utils.js';
 
 export class Game {
     ctx;
@@ -37,6 +37,9 @@ export class Game {
 
     shadowColor;
     backgroundColor;
+
+    passSound = "../../assets/sounds/xylophone-hit.mp3";
+
 
     constructor() {
         this.animate = this.animate.bind(this);
@@ -139,13 +142,12 @@ export class Game {
             return true;
         });
 
-
-        if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
-
         //arc, shadow, ball drawing
         this.arcs.forEach(arc => arc.draw(this.ctx));
         this.shadowBalls.forEach(ball => ball.draw(this.ctx));
         this.ball.draw(this.ctx);
+
+        if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
 
         requestAnimationFrame(this.animate);
 
@@ -174,6 +176,8 @@ export class Game {
         if(this.increaseBall) {
             this.ball.setRadius(2);
         }
+
+        playSound(this.passSound, 0.5);
     }
 
     togglePause() {

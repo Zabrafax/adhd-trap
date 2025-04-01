@@ -23,3 +23,9 @@ export function hexToRGBA(hex, opacity = 1) {
 
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+
+export function playSound(path, volume) {
+    const sound = new Audio(path);
+    sound.volume = volume;
+    sound.play();
+}
