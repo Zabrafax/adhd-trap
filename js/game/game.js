@@ -33,6 +33,7 @@ export class Game {
     twoSideSpin = false;
     spinOnPass = false;
     increaseBall = false;
+    showArcsCount = false;
 
     shadowColor;
     backgroundColor;
@@ -55,11 +56,12 @@ export class Game {
         this.backgroundColor = backgroundColor;
     }
 
-    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall) {
+    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount) {
         this.directionChange = directionChange;
         this.twoSideSpin = twoSideSpin;
         this.spinOnPass = spinOnPass;
         this.increaseBall = increaseBall;
+        this.showArcsCount = showArcsCount;
     }
 
     newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier, arcSpeedDiff, startAngle) {
@@ -138,7 +140,7 @@ export class Game {
         });
 
 
-        drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
+        if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
 
         //arc, shadow, ball drawing
         this.arcs.forEach(arc => arc.draw(this.ctx));

@@ -76,6 +76,7 @@ let directionChange = document.getElementById("toggle1").checked;
 let twoSideSpin = document.getElementById("toggle2").checked;
 let spinOnPass = document.getElementById("toggle3").checked;
 let increaseBall = document.getElementById("toggle4").checked;
+let showArcsCount = document.getElementById("toggle5").checked;
 
 document.getElementById("toggle1").addEventListener("change", function () {
     directionChange = this.checked;
@@ -103,6 +104,11 @@ document.getElementById("toggle4").addEventListener("change", function () {
     console.log("increaseBall:", increaseBall);
 });
 
+document.getElementById("toggle5").addEventListener("change", function () {
+    showArcsCount = this.checked;
+    console.log("showArcsCount:", showArcsCount);
+});
+
 ///////////////////////////////////////////////// Colors //////////////////////////////////////
 
 let shadowColor = document.getElementById("color1").value;
@@ -123,7 +129,7 @@ initializeGame();
 
 function initializeGame() {
     game.setColors(shadowColor, backgroundColor);
-    game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall);
+    game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
     game.newGame(
         numArcs.value / 1,
         arcGap.value / 1,
