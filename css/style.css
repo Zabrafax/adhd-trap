@@ -117,8 +117,8 @@ main {
 
 .game__container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: min-content;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr 1fr;
     grid-column-gap: 0;
     grid-row-gap: 0;
 
@@ -212,8 +212,10 @@ main {
 }
 
 .canvas__container {
-    grid-area: 1 / 2 / 2 / 3;
-    height: auto;
+    grid-area: 1 / 2 / auto / auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding-bottom: 1rem;
 
     display: flex;
     justify-content: center;
@@ -234,10 +236,6 @@ main {
 
 .appearance__container {
     grid-area: auto / 2 / 3 / 3;
-
-    /*padding-top: 1rem;*/
-    padding-top: 0 !important;
-    margin-top: 0 !important;
 }
 
 .color__container {
