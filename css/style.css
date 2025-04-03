@@ -89,6 +89,7 @@ header {
 main {
     max-width: 2000px;
     min-height: calc(100vh - 5rem - 5rem);
+    height: fit-content;
     margin: 0 auto;
     padding: 2rem 0;
 
@@ -117,9 +118,11 @@ main {
 .game__container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
+    grid-template-rows: min-content;
     grid-column-gap: 0;
     grid-row-gap: 0;
+
+    grid-auto-flow: row dense;
 }
 
 .settings__container {
@@ -172,11 +175,21 @@ main {
     flex-wrap: wrap;
 }
 
-.switch__wrapper {
+.switch__container .switch__wrapper {
     width: fit-content;
     height: fit-content;
     padding: 0 0.5rem;
     margin-bottom: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.switch__dropzone__container .switch__wrapper {
+    width: fit-content;
+    height: fit-content;
 
     display: flex;
     flex-direction: row;
@@ -194,9 +207,13 @@ main {
     align-items: center;
 }
 
+.switch__dropzone__container:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
 .canvas__container {
-    grid-area: 1 / 2 / 2 / 3;
-    aspect-ratio: 1 / 1;
+    grid-area: 1 / 2 / auto / 3;
+    height: auto;
 
     display: flex;
     justify-content: center;
@@ -216,9 +233,12 @@ main {
 }
 
 .appearance__container {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-column: 2 / 3;
+    grid-row: auto;
 
-    padding-top: 1rem;
+    /*padding-top: 1rem;*/
+    padding-top: 0 !important;
+    margin-top: 0 !important;
 }
 
 .color__container {
