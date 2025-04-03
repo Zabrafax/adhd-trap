@@ -1,0 +1,8 @@
+.dropzone__wrapper {
+    width: 200px;
+    height: 90%;
+
+    background-color: var(--color-background);
+    border-radius: 8px;
+    border: 2px solid white;
+}

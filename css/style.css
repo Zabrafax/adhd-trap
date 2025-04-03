@@ -184,6 +184,16 @@ main {
     align-items: center;
 }
 
+.switch__dropzone__container {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .canvas__container {
     grid-area: 1 / 2 / 2 / 3;
     aspect-ratio: 1 / 1;
