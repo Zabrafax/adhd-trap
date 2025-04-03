@@ -150,12 +150,12 @@ export class Game {
             return true;
         });
 
+        if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
+
         //arc, shadow, ball drawing
         this.arcs.forEach(arc => arc.draw(this.ctx));
         this.shadowBalls.forEach(ball => ball.draw(this.ctx));
         this.ball.draw(this.ctx);
-
-        if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
 
         requestAnimationFrame(this.animate);
 
