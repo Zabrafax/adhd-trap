@@ -212,7 +212,7 @@ main {
 }
 
 .canvas__container {
-    grid-area: 1 / 2 / auto / 3;
+    grid-area: 1 / 2 / 2 / 3;
     height: auto;
 
     display: flex;
@@ -233,8 +233,7 @@ main {
 }
 
 .appearance__container {
-    grid-column: 2 / 3;
-    grid-row: auto;
+    grid-area: auto / 2 / 3 / 3;
 
     /*padding-top: 1rem;*/
     padding-top: 0 !important;
