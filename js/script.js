@@ -1,5 +1,6 @@
 import {initializeSlider} from "./slider.js";
 import {Game} from "./game/game.js";
+import {initializeDropzone} from "./dropzone.js"
 
 const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
@@ -14,6 +15,9 @@ function resizeCanvas() {
     game.updateCtx(canvasElement, ctx);
 }
 resizeCanvas();
+
+/////////        Pause and start buttons                     ///////////////
+//region
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', function() {
@@ -43,6 +47,11 @@ pauseButton.addEventListener('click', function() {
     //console.log('Pause Button is Pressed');
 });
 
+//endregion
+
+/////////        Sliders and variables initializing          ///////////////
+//region
+
 let numArcs = {value: null};
 let arcGap = {value: null};
 let arcThickness = {value: null};
@@ -70,7 +79,10 @@ initializeSlider('slider7', 'input7', deltaLimit);
 initializeSlider('slider8', 'input8', bounceFactor);
 initializeSlider('slider9', 'input9', massMultiplier);
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+//endregion
+
+/////////        Buttons and variables initializing          ///////////////
+//region
 
 let directionChange = document.getElementById("toggle1").checked;
 let twoSideSpin = document.getElementById("toggle2").checked;
@@ -122,7 +134,13 @@ document.getElementById("toggle7").addEventListener("change", function () {
     //console.log("ballBounceSound:", ballBounceSound);
 });
 
-///////////////////////////////////////////////// Colors //////////////////////////////////////
+//endregion
+
+initializeDropzone('dropzone1', 'fileName1');
+initializeDropzone('dropzone2', 'fileName2');
+
+/////////                     Colors                         ///////////////
+//region
 
 let shadowColor = document.getElementById("color1").value;
 const colorPicker1 = document.getElementById("color1");
@@ -135,6 +153,8 @@ const colorPicker2 = document.getElementById("color2");
 colorPicker2.addEventListener("input", (event) => {
     backgroundColor = event.target.value;
 });
+
+//endregion
 
 ////////////////////////////////////////////////////// Game /////////////////////////////////
 
