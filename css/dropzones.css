@@ -1,8 +1,16 @@
 .dropzone__wrapper {
-    width: 200px;
-    height: 90%;
+    width: 130px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-color: var(--color-background);
     border-radius: 8px;
     border: 2px solid white;
+}
+
+.dropzone__wrapper {
+    font-size: 16px;
 }

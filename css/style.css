@@ -284,6 +284,10 @@ footer p:first-of-type {
 }
 
 @media (max-width: 480px) {
+    .switch__dropzone__container {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
