@@ -205,6 +205,9 @@ main {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+
+    gap: 1rem;
 }
 
 .switch__dropzone__container:not(:last-child) {
