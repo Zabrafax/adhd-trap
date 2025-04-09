@@ -37,11 +37,13 @@ export class Game {
 
     arcPassSound = false;
     ballBounceSound = false;
+    arcPassSoundFile = null;
+    ballBounceSoundFile = null;
 
     shadowColor;
     backgroundColor;
 
-    passSound = "../../assets/sounds/xylophone-hit.mp3";
+    passSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
 
 
     constructor() {
@@ -57,9 +59,11 @@ export class Game {
         this.radius = Math.min(canvasElement.width, canvasElement.height) / 20;
     }
 
-    setSounds(arcPassSound, ballBounceSound) {
+    setSounds(arcPassSound, ballBounceSound, arcPassSoundFile, ballBounceSoundFile) {
         this.arcPassSound = arcPassSound;
         this.ballBounceSound = ballBounceSound;
+        this.arcPassSoundFile = arcPassSoundFile;
+        this.ballBounceSoundFile = ballBounceSoundFile;
     }
 
     setColors(shadowColor, backgroundColor) {
@@ -185,7 +189,14 @@ export class Game {
             this.ball.setRadius(2);
         }
 
-        if(this.arcPassSound) playSound(this.passSound, 0.5);
+        if(this.arcPassSound) {
+            if(this.arcPassSoundFile != null) {
+                playSound(URL.createObjectURL(this.arcPassSoundFile), 0.7);
+            }
+            else {
+                playSound(this.passSoundDefault, 0.5);
+            }
+        }
     }
 
     togglePause() {

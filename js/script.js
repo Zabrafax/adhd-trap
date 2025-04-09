@@ -136,8 +136,11 @@ document.getElementById("toggle7").addEventListener("change", function () {
 
 //endregion
 
-initializeDropzone('dropzone1', 'fileName1');
-initializeDropzone('dropzone2', 'fileName2');
+let arcPassSoundFile = {value: null};
+let ballBounceSoundFile = {value: null};
+
+initializeDropzone('dropzone1', 'fileName1', arcPassSoundFile);
+initializeDropzone('dropzone2', 'fileName2', ballBounceSoundFile);
 
 /////////                     Colors                         ///////////////
 //region
@@ -161,7 +164,7 @@ colorPicker2.addEventListener("input", (event) => {
 initializeGame();
 
 function initializeGame() {
-    game.setSounds(arcPassSound, ballBounceSound);
+    game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
     game.setColors(shadowColor, backgroundColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
     game.newGame(
