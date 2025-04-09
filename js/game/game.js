@@ -117,7 +117,7 @@ export class Game {
         }
         //ball
         this.ball = new Ball(this.centerY + 10, this.centerX, this.ballRadius, this.deltaLimit,
-            this.canvasElement, this.bounceFactor, this.massMultiplier, this.ballBounceSound);
+            this.canvasElement, this.bounceFactor, this.massMultiplier, this.ballBounceSound, this.ballBounceSoundFile);
 
         this.isPaused = false;
     }
