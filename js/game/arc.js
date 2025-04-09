@@ -101,6 +101,7 @@ export class Arc {
 
     reverseDirection() {
         this.rotationSpeed = -this.rotationSpeed;
+        this.holdSpeed = -this.holdSpeed;
     }
 
     holdSpin() {

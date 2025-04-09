@@ -182,6 +182,7 @@ export class Game {
         }
         if(this.directionChange) {
             this.arcs.forEach(arc => {
+                console.log('Changed');
                 arc.reverseDirection();
             })
         }
