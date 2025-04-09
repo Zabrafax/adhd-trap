@@ -25,7 +25,41 @@ export function hexToRGBA(hex, opacity = 1) {
 }
 
 export function playSound(path, volume) {
-    const sound = new Audio(path);
-    sound.volume = volume;
-    sound.play();
+    const audio = new Audio(path);
+    audio.loop = false;
+
+    const audioContext = new AudioContext();
+    const track = audioContext.createMediaElementSource(audio);
+
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = volume;
+
+    track.connect(gainNode).connect(audioContext.destination);
+
+    audio.play();
+}
+
+export function playSound4Sec(path, volume) {
+    const audio = new Audio(path);
+    audio.loop = false;
+
+    const audioContext = new AudioContext();
+    const track = audioContext.createMediaElementSource(audio);
+
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = volume;
+
+    track.connect(gainNode).connect(audioContext.destination);
+
+    audio.play();
+
+    setTimeout(() => {
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 2);
+    }, 2000);
+
+    setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audioContext.close();
+    }, 4000);
 }

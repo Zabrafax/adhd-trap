@@ -1,4 +1,4 @@
-import {playSound, random} from "../utils.js";
+import {playSound, random, playSound4Sec} from "../utils.js";
 
 export class Ball {
     bounceSound = "../../assets/sounds/xylophone-hit.mp3";

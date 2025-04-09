@@ -1,7 +1,7 @@
 import { Arc } from './arc.js';
 import { Ball } from './ball.js';
 import { ShadowBall } from './shadowBall.js';
-import {drawScore, hexToRGBA, playSound, sleep} from '../utils.js';
+import {drawScore, hexToRGBA, playSound, sleep, playSound4Sec} from '../utils.js';
 
 export class Game {
     ctx;
@@ -191,7 +191,7 @@ export class Game {
 
         if(this.arcPassSound) {
             if(this.arcPassSoundFile != null) {
-                playSound(URL.createObjectURL(this.arcPassSoundFile), 0.7);
+                playSound4Sec(URL.createObjectURL(this.arcPassSoundFile), 0.7);
             }
             else {
                 playSound(this.passSoundDefault, 0.5);
