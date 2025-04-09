@@ -77,29 +77,29 @@ export class Ball {
                 let newDx = tangentX * dotProductTangent + normalX * -dotProductNormal;
                 let newDy = tangentY * dotProductTangent + normalY * -dotProductNormal;
 
-                // const epsilon = 6;
-                // if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
-                //     this.dx = tangentX * dotProductTangent;
-                //     this.dy = tangentY * dotProductTangent;
-                //
-                //
-                //     const angleDeviation = 30 * Math.PI / 180 * Math.sign(random(-1, 1));
-                //
-                //     const normalAngle = Math.atan2(normalY, normalX);
-                //
-                //     const newNormalAngle = normalAngle + angleDeviation;
-                //
-                //     const newNormalX = Math.cos(newNormalAngle);
-                //     const newNormalY = Math.sin(newNormalAngle);
-                //
-                //     this.dx += newNormalX * -dotProductNormal;
-                //     this.dy += newNormalY * -dotProductNormal;
-                //
-                //     //console.log("random");
-                // } else {
+                const epsilon = 0.2;
+                if (Math.abs(newDx + this.dx) < epsilon && Math.abs(newDy + this.dy) < epsilon) {
+                    this.dx = tangentX * dotProductTangent;
+                    this.dy = tangentY * dotProductTangent;
+
+
+                    const angleDeviation = 30 * Math.PI / 180 * Math.sign(random(-1, 1));
+
+                    const normalAngle = Math.atan2(normalY, normalX);
+
+                    const newNormalAngle = normalAngle + angleDeviation;
+
+                    const newNormalX = Math.cos(newNormalAngle);
+                    const newNormalY = Math.sin(newNormalAngle);
+
+                    this.dx += newNormalX * -dotProductNormal;
+                    this.dy += newNormalY * -dotProductNormal;
+
+                    //console.log("random");
+                } else {
                     this.dx = newDx;
                     this.dy = newDy;
-                //}
+                }
 
                 this.dx *= this.bounceFactor;
                 this.dy *= this.bounceFactor;
