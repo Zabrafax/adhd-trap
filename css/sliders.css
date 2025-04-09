@@ -24,13 +24,17 @@
     -webkit-appearance: none;
     appearance: none;
 
-    background-color: var(--button-color-pastel, var(--color-button-default-1));
+    /*background-color: var(--button-color-pastel, var(--color-button-default-1));*/
+    background-color: white;
     border-radius: 10rem;
     outline: none;
+
+    transition: 0.2s;
 }
 
 .settings__slider:hover {
-    box-shadow: 0 0 1rem var(--button-color-bright, var(--color-button-default-2));
+    box-shadow: 0 0 1rem var(--button-color-pressed, var(--color-button-default-3));
+    background-color: var(--button-color-pastel, var(--color-button-default-1));
 }
 
 .settings__slider::-webkit-slider-thumb {
