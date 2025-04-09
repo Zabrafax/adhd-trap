@@ -9,7 +9,6 @@ export class Ball {
         this.canvas = canvas;
         this.dx = startSpeed * Math.cos((ballStartAngle - 90) * (Math.PI / 180));
         this.dy = startSpeed * Math.sin((ballStartAngle - 90) * (Math.PI / 180));
-        console.log(ballStartAngle);
         this.bounceFactor = bounceFactor;
         this.massMultiplier = massMultiplier;
         this._y = y;
