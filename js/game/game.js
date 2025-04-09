@@ -23,6 +23,7 @@ export class Game {
     deltaLimit;
     bounceFactor;
     massMultiplier;
+    ballStartAngle;
 
     arcs = [];
     shadowBalls = [];
@@ -79,7 +80,8 @@ export class Game {
         this.showArcsCount = showArcsCount;
     }
 
-    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier, arcSpeedDiff, startAngle) {
+    newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier,
+            arcSpeedDiff, startAngle, ballStartAngle) {
         //arcs
         this.numArcs = numArcs;
         this.arcGap = arcGap;
@@ -94,6 +96,7 @@ export class Game {
         this.deltaLimit = deltaLimit;
         this.bounceFactor = bounceFactor;
         this.massMultiplier = massMultiplier;
+        this.ballStartAngle = ballStartAngle;
 
         this.shadowBalls = [];
         this.arcs = [];
@@ -116,7 +119,7 @@ export class Game {
             this.arcs.push(this.newArc);
         }
         //ball
-        this.ball = new Ball(this.centerY + 10, this.centerX, this.ballRadius, this.deltaLimit,
+        this.ball = new Ball(this.centerY + 10, this.centerX, this.ballStartAngle, 2, this.ballRadius, this.deltaLimit,
             this.canvasElement, this.bounceFactor, this.massMultiplier, this.ballBounceSound, this.ballBounceSoundFile);
 
         this.isPaused = false;

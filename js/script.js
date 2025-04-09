@@ -64,7 +64,7 @@ let ballRadius = {value: null};
 let deltaLimit = {value: null};
 let bounceFactor = {value: null};
 let massMultiplier = {value: null};
-// const massMultiplier = 0.0001;
+let ballStartAngle = {value: null};
 
 initializeSlider('slider1', 'input1', numArcs);
 initializeSlider('slider2', 'input2', arcGap);
@@ -74,6 +74,7 @@ initializeSlider('slider5', 'input5', arcSpeed);
 initializeSlider('slider10', 'input10', arcSpeedDiff);
 initializeSlider('slider11', 'input11', startAngle);
 
+initializeSlider('slider12', 'input12', ballStartAngle);
 initializeSlider('slider6', 'input6', ballRadius);
 initializeSlider('slider7', 'input7', deltaLimit);
 initializeSlider('slider8', 'input8', bounceFactor);
@@ -136,11 +137,16 @@ document.getElementById("toggle7").addEventListener("change", function () {
 
 //endregion
 
+/////////        Dropzones and variables initializing        ///////////////
+//region
+
 let arcPassSoundFile = {value: null};
 let ballBounceSoundFile = {value: null};
 
 initializeDropzone('dropzone1', 'fileName1', arcPassSoundFile);
 initializeDropzone('dropzone2', 'fileName2', ballBounceSoundFile);
+
+//endregion
 
 /////////                     Colors                         ///////////////
 //region
@@ -178,7 +184,8 @@ function initializeGame() {
         bounceFactor.value / 100,
         massMultiplier.value / 1000000 * 0.8,
         arcSpeedDiff.value / 100,
-        startAngle.value / 1
+        startAngle.value / 1,
+        ballStartAngle.value / 1,
     );
 }
 

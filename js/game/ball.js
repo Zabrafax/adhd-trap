@@ -3,11 +3,13 @@ import {playSound, random, playSound4Sec} from "../utils.js";
 export class Ball {
     bounceSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
 
-    constructor(y, x, ballRadius, deltaLimitFactor, canvas, bounceFactor, massMultiplier, ballBounceSound, ballBounceSoundFile) {
+    constructor(y, x, ballStartAngle, startSpeed, ballRadius, deltaLimitFactor, canvas, bounceFactor,
+                massMultiplier, ballBounceSound, ballBounceSoundFile) {
         this.deltaLimitFactor = deltaLimitFactor;
         this.canvas = canvas;
-        this.dx = random(-2, 2);
-        this.dy = random(-2, 2);
+        this.dx = startSpeed * Math.cos((ballStartAngle - 90) * (Math.PI / 180));
+        this.dy = startSpeed * Math.sin((ballStartAngle - 90) * (Math.PI / 180));
+        console.log(ballStartAngle);
         this.bounceFactor = bounceFactor;
         this.massMultiplier = massMultiplier;
         this._y = y;
