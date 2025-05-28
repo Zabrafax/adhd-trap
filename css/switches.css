@@ -7,8 +7,10 @@
 }
 
 .switch-violet {
-    --color-switch-off: var(--color-button-red-2);
-    --color-switch-on: var(--color-button-violet-2);
+    --color-switch-off: var(--color-button-red-1);
+    --color-switch-on: var(--color-button-violet-1);
+    --color-switch-off-hover: var(--color-button-red-2);
+    --color-switch-on-hover: var(--color-button-violet-2);
     --color-switch-off-shadow: var(--color-button-red-3);
     --color-switch-on-shadow: var(--color-button-violet-3);
 }
@@ -44,6 +46,7 @@
 
 .switch label:hover {
     box-shadow: 0 0 30px var(--color-switch-off-shadow);
+    background-color: var(--color-switch-off-hover);
 }
 
 .switch--disabled label {
@@ -66,6 +69,7 @@
 }
 
 .switch input:checked:hover + label {
+    background-color: var(--color-switch-on-hover);
     box-shadow: 0 0 30px var(--color-switch-on-shadow);
 }
 

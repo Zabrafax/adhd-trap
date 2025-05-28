@@ -1,7 +1,10 @@
+import {hexToRGBA} from "../utils.js";
+
 export class Arc {
-    constructor(centerY, centerX, radius, gapAngle, rotationSpeed, arcThickness, angle) {
+    constructor(centerY, centerX, arcColor, radius, gapAngle, rotationSpeed, arcThickness, angle) {
         this.centerX = centerX;
         this.centerY = centerY;
+        this.arcColor = arcColor;
         this.radius = radius;
         this.gapAngle = gapAngle * Math.PI / 180;
         this.rotationSpeed = rotationSpeed;
@@ -57,18 +60,14 @@ export class Arc {
         const dx = x - this.centerX;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist + ballRadius >= this.radius) {
-            //console.log("Gone through");
-            return true;
-        }
-        return false;
+        return dist + ballRadius >= this.radius;
     }
 
     draw(ctx) {
         ctx.beginPath();
         ctx.arc(this.centerX, this.centerY, this.radius, this.angle + this.gapAngle,
             this.angle);
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = hexToRGBA(this.arcColor);
         ctx.lineWidth = this.arcThickness;
         ctx.stroke();
         ctx.closePath();
@@ -93,7 +92,7 @@ export class Arc {
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(x2, y2);
-        ctx.strokeStyle = "white";
+        ctx.strokeStyle = hexToRGBA(this.arcColor);
         ctx.lineWidth = this.arcThickness / 2;
         ctx.stroke();
         ctx.closePath();

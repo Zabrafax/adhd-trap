@@ -31,132 +31,134 @@
                 <!-- Sliders -->
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider1" class="settings__slider__label">Arc count:</label>
+                        <label for="sliderNumArcs" class="settings__slider__label">Arc count:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider1" class="settings__slider" min="1" max="100" step="1" value="20">
-                            <input type="number" id="input1" class="settings__slider__input">
+                            <input type="range" id="sliderNumArcs" class="settings__slider">
+                            <input type="number" id="inputNumArcs" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider2" class="settings__slider__label">Gap between arcs:</label>
+                        <label for="sliderArcGap" class="settings__slider__label">Gap between arcs:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider2" class="settings__slider" min="0" max="50" step="1" value="25">
-                            <input type="number" id="input2" class="settings__slider__input">
+                            <input type="range" id="sliderArcGap" class="settings__slider" min="0" max="50" step="1" value="25">
+                            <input type="number" id="inputArcGap" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider3" class="settings__slider__label">Arcs thickness:</label>
+                        <label for="sliderArcThickness" class="settings__slider__label">Arcs thickness:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider3" class="settings__slider" min="1" max="20" step="1" value="8">
-                            <input type="number" id="input3" class="settings__slider__input">
+                            <input type="range" id="sliderArcThickness" class="settings__slider" min="1" max="20" step="1" value="8">
+                            <input type="number" id="inputArcThickness" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider4" class="settings__slider__label">Arc gap angle:</label>
+                        <label for="sliderGapAngle" class="settings__slider__label">Arc gap angle:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider4" class="settings__slider" min="5" max="355" step="1" value="30">
-                            <input type="number" id="input4" class="settings__slider__input">
+                            <input type="range" id="sliderGapAngle" class="settings__slider" min="5" max="355" step="1" value="30">
+                            <input type="number" id="inputGapAngle" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider5" class="settings__slider__label">Arcs speed:</label>
+                        <label for="sliderArcSpeed" class="settings__slider__label">Arcs speed:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider5" class="settings__slider" min="1" max="200" step="1" value="20">
-                            <input type="number" id="input5" class="settings__slider__input">
+                            <input type="range" id="sliderArcSpeed" class="settings__slider" min="1" max="200" step="1" value="20">
+                            <input type="number" id="inputArcSpeed" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider10" class="settings__slider__label">Arc speed diff %:</label>
+                        <label for="sliderArcSpeedDiff" class="settings__slider__label">Arc speed diff %:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider10" class="settings__slider" min="0" max="200" step="1" value="20">
-                            <input type="number" id="input10" class="settings__slider__input">
+                            <input type="range" id="sliderArcSpeedDiff" class="settings__slider" min="0" max="200" step="1" value="20">
+                            <input type="number" id="inputArcSpeedDiff" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider11" class="settings__slider__label">Start angle °:</label>
+                        <label for="sliderStartAngle" class="settings__slider__label">Start angle °:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider11" class="settings__slider" min="0" max="360" step="1" value="135">
-                            <input type="number" id="input11" class="settings__slider__input">
+                            <input type="range" id="sliderStartAngle" class="settings__slider" min="0" max="360" step="1" value="135">
+                            <input type="number" id="inputStartAngle" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
-                <!-- Ball -->
+                <button class="button__reset red-theme" id="resetBallSettingsButton">Reset</button>
+
+                <!-- Ball Properties -->
                 <h1 class="settings__label">Ball Settings:</h1>
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider12" class="settings__slider__label">Start angle °:</label>
+                        <label for="sliderBallStartAngle" class="settings__slider__label">Start angle °:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider12" class="settings__slider" min="0" max="360" step="1" value="270">
-                            <input type="number" id="input12" class="settings__slider__input">
+                            <input type="range" id="sliderBallStartAngle" class="settings__slider" min="0" max="360" step="1" value="270">
+                            <input type="number" id="inputBallStartAngle" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider13" class="settings__slider__label">Start speed (^10):</label>
+                        <label for="sliderBallStartSpeed" class="settings__slider__label">Start speed (^10):</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider13" class="settings__slider" min="0" max="150" step="1" value="20">
-                            <input type="number" id="input13" class="settings__slider__input">
+                            <input type="range" id="sliderBallStartSpeed" class="settings__slider" min="0" max="150" step="1" value="20">
+                            <input type="number" id="inputBallStartSpeed" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider6" class="settings__slider__label">Ball radius:</label>
+                        <label for="sliderBallRadius" class="settings__slider__label">Ball radius:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider6" class="settings__slider" min="5" max="100" step="1" value="30">
-                            <input type="number" id="input6" class="settings__slider__input">
+                            <input type="range" id="sliderBallRadius" class="settings__slider" min="5" max="100" step="1" value="30">
+                            <input type="number" id="inputBallRadius" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider7" class="settings__slider__label">Speed limit factor:</label>
+                        <label for="sliderDeltaLimit" class="settings__slider__label">Speed limit factor:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider7" class="settings__slider" min="1" max="50" step="1" value="5">
-                            <input type="number" id="input7" class="settings__slider__input">
+                            <input type="range" id="sliderDeltaLimit" class="settings__slider" min="1" max="50" step="1" value="5">
+                            <input type="number" id="inputDeltaLimit" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider8" class="settings__slider__label">Bounce factor %:</label>
+                        <label for="sliderBounceFactor" class="settings__slider__label">Bounce factor %:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider8" class="settings__slider" min="50" max="150" step="1" value="103">
-                            <input type="number" id="input8" class="settings__slider__input">
+                            <input type="range" id="sliderBounceFactor" class="settings__slider" min="50" max="150" step="1" value="103">
+                            <input type="number" id="inputBounceFactor" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
 
                 <div class="settings__element">
                     <div class="slider__container">
-                        <label for="slider9" class="settings__slider__label">Mass multiplier %:</label>
+                        <label for="sliderMassMultiplier" class="settings__slider__label">Mass multiplier %:</label>
                         <div class="slider__wrapper violet-theme">
-                            <input type="range" id="slider9" class="settings__slider" min="0" max="500" step="1" value="100">
-                            <input type="number" id="input9" class="settings__slider__input">
+                            <input type="range" id="sliderMassMultiplier" class="settings__slider" min="0" max="500" step="1" value="100">
+                            <input type="number" id="inputMassMultiplier" class="settings__slider__input">
                         </div>
                     </div>
                 </div>
@@ -267,10 +269,10 @@
                         <input type="color" class="color__input" id="color2" value="#000000">
                     </div>
 
-<!--                    <div class="color__wrapper">-->
-<!--                        <label for="color3">Shadow color:</label>-->
-<!--                        <input type="color" class="color__input" id="color3">-->
-<!--                    </div>-->
+                    <div class="color__wrapper">
+                        <label for="color3">Arcs color:</label>
+                        <input type="color" class="color__input" id="color3" value="#ffffff">
+                    </div>
                 </div>
             </div>
 

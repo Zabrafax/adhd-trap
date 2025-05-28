@@ -1,4 +1,4 @@
-import {initializeSlider} from "./slider.js";
+import {Slider} from "./slider.js";
 import {Game} from "./game/game.js";
 import {initializeDropzone} from "./dropzone.js"
 
@@ -51,7 +51,6 @@ pauseButton.addEventListener('click', function() {
 
 /////////        Sliders and variables initializing          ///////////////
 //region
-
 let numArcs = {value: null};
 let arcGap = {value: null};
 let arcThickness = {value: null};
@@ -67,20 +66,35 @@ let massMultiplier = {value: null};
 let ballStartAngle = {value: null};
 let ballStartSpeed = {value: null};
 
-initializeSlider('slider1', 'input1', numArcs);
-initializeSlider('slider2', 'input2', arcGap);
-initializeSlider('slider3', 'input3', arcThickness);
-initializeSlider('slider4', 'input4', gapAngle);
-initializeSlider('slider5', 'input5', arcSpeed);
-initializeSlider('slider10', 'input10', arcSpeedDiff);
-initializeSlider('slider11', 'input11', startAngle);
+const sliderConfigs = [
+    { id: 'sliderNumArcs', input: 'inputNumArcs', sliderValueRef: numArcs, defaultValue: 20, min: 1, max: 100 },
+    { id: 'sliderArcGap', input: 'inputArcGap', sliderValueRef: arcGap, defaultValue: 25 },
+    { id: 'sliderArcThickness', input: 'inputArcThickness', sliderValueRef: arcThickness, defaultValue: 8 },
+    { id: 'sliderGapAngle', input: 'inputGapAngle', sliderValueRef: gapAngle, defaultValue: 30 },
+    { id: 'sliderArcSpeed', input: 'inputArcSpeed', sliderValueRef: arcSpeed, defaultValue: 20 },
+    { id: 'sliderArcSpeedDiff', input: 'inputArcSpeedDiff', sliderValueRef: arcSpeedDiff, defaultValue: 20 },
+    { id: 'sliderStartAngle', input: 'inputStartAngle', sliderValueRef: startAngle, defaultValue: 135 },
 
-initializeSlider('slider12', 'input12', ballStartAngle);
-initializeSlider('slider13', 'input13', ballStartSpeed);
-initializeSlider('slider6', 'input6', ballRadius);
-initializeSlider('slider7', 'input7', deltaLimit);
-initializeSlider('slider8', 'input8', bounceFactor);
-initializeSlider('slider9', 'input9', massMultiplier);
+    { id: 'sliderBallStartAngle', input: 'inputBallStartAngle', sliderValueRef: ballStartAngle, defaultValue: 270 },
+    { id: 'sliderBallStartSpeed', input: 'inputBallStartSpeed', sliderValueRef: ballStartSpeed, defaultValue: 20 },
+    { id: 'sliderBallRadius', input: 'inputBallRadius', sliderValueRef: ballRadius, defaultValue: 30 },
+    { id: 'sliderDeltaLimit', input: 'inputDeltaLimit', sliderValueRef: deltaLimit, defaultValue: 5 },
+    { id: 'sliderBounceFactor', input: 'inputBounceFactor', sliderValueRef: bounceFactor, defaultValue: 103 },
+    { id: 'sliderMassMultiplier', input: 'inputMassMultiplier', sliderValueRef: massMultiplier, defaultValue: 100 }
+];
+
+function initSliders() {
+    const sliders = [];
+
+    for (const cfg of sliderConfigs) {
+        const s = new Slider(cfg.id, cfg.input, cfg.sliderValueRef, cfg.defaultValue, cfg.min, cfg.max);
+        sliders.push(s);
+    }
+
+    return sliders;
+}
+
+let slider = initSliders();
 
 //endregion
 
@@ -165,6 +179,12 @@ colorPicker2.addEventListener("input", (event) => {
     backgroundColor = event.target.value;
 });
 
+let arcsColor = document.getElementById("color3").value;
+const colorPicker3 = document.getElementById("color3");
+colorPicker3.addEventListener("input", (event) => {
+    arcsColor = event.target.value;
+});
+
 //endregion
 
 ////////////////////////////////////////////////////// Game /////////////////////////////////
@@ -173,7 +193,7 @@ initializeGame();
 
 function initializeGame() {
     game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
-    game.setColors(shadowColor, backgroundColor);
+    game.setColors(shadowColor, backgroundColor, arcsColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
     game.newGame(
         numArcs.value / 1,

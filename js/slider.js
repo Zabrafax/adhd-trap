@@ -1,59 +1,68 @@
-function initializeSlider(sliderId, inputId, variable) {
-    const slider = document.getElementById(sliderId);
-    const input = document.getElementById(inputId);
-    const defaultValue = slider.value;
+export class Slider {
+    slider;
+    input;
+    defaultValue;
 
-    variable.value = parseInt(defaultValue);
+    variable;
 
-    input.min = slider.min;
-    input.max = slider.max;
-    input.step = slider.step;
-    input.value = slider.value;
+    minValue;
+    maxValue;
 
-    slider.addEventListener('input', () => {
-        input.value = slider.value;
-        variable.value = parseInt(slider.value);
-    });
+    constructor(sliderId, inputId, variable, defaultValue, minValue, maxValue) {
+        this.slider = document.getElementById(sliderId);
+        this.input = document.getElementById(inputId);
+        this.defaultValue = defaultValue;
 
-    input.addEventListener('input', () => {
-        inputChange(input, slider, variable);
-    });
+        this.variable = variable;
+        this.variable.value = defaultValue;
 
-    input.addEventListener('blur', () => {
-        if (input.value.trim() === "") {
-            input.value = defaultValue;
-            slider.value = input.value;
-            variable.value = parseInt(slider.value);
-        } else {
-            inputChange(input, slider, variable);
-        }
-    });
+        this.minValue = minValue;
+        this.maxValue = maxValue;
 
-    input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            if (input.value.trim() === "") {
-                input.value = defaultValue;
-                slider.value = input.value;
-                variable.value = parseInt(slider.value);
+        this.input.min = minValue;
+        this.input.max = maxValue;
+        this.input.value = defaultValue;
+
+        this.slider.addEventListener('input', () => {
+            this.input.value = this.slider.value;
+            this.variable.value = parseInt(this.slider.value);
+        });
+
+        this.input.addEventListener('input', () => {
+            this.inputChange(this.input, this.slider, this.variable);
+        });
+
+        this.input.addEventListener('blur', () => {
+            if (this.input.value.trim() === "") {
+                this.input.value = this.defaultValue;
+                this.slider.value = this.input.value;
+                this.variable.value = parseInt(this.slider.value);
             } else {
-                inputChange(input, slider, variable);
+                this.inputChange(this.input, this.slider, this.variable);
             }
+        });
+
+        this.input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                if (this.input.value.trim() === "") {
+                    this.input.value = this.defaultValue;
+                    this.slider.value = this.input.value;
+                    this.variable.value = parseInt(this.slider.value);
+                } else {
+                    this.inputChange(this.input, this.slider, this.variable);
+                }
+            }
+        });
+    }
+
+    inputChange() {
+        if (this.input.value >= this.minValue && this.input.value <= this.maxValue) {
+            this.slider.value = this.input.value;
+            this.variable.value = this.input.value;
+        } else if (!(this.input.value.trim() === "")) {
+            this.input.value = this.input.value < this.minValue ? this.minValue : this.maxValue;
+            this.slider.value = this.input.value;
+            this.variable.value = this.input.value;
         }
-    });
-}
-
-function inputChange(input, slider, variable) {
-    const minValue = parseInt(slider.min);
-    const maxValue = parseInt(slider.max);
-
-    if (input.value >= minValue && input.value <= maxValue) {
-        slider.value = input.value;
-        variable.value = input.value;
-    } else if (!(input.value.trim() === "")) {
-        input.value = input.value < minValue ? minValue : maxValue;
-        slider.value = input.value;
-        variable.value = input.value;
     }
 }
-
-export { initializeSlider };

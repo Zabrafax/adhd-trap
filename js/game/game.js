@@ -42,8 +42,10 @@ export class Game {
     arcPassSoundFile = null;
     ballBounceSoundFile = null;
 
+    //colors
     shadowColor;
     backgroundColor;
+    arcsColor;
 
     passSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
 
@@ -68,9 +70,10 @@ export class Game {
         this.ballBounceSoundFile = ballBounceSoundFile;
     }
 
-    setColors(shadowColor, backgroundColor) {
+    setColors(shadowColor, backgroundColor, arcsColor) {
         this.shadowColor = shadowColor;
         this.backgroundColor = backgroundColor;
+        this.arcsColor = arcsColor;
     }
 
     setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount) {
@@ -103,7 +106,8 @@ export class Game {
         this.shadowBalls = [];
         this.arcs = [];
         this.ball = null;
-        //arcs
+
+        //arcs init
         for (let i = 0; i < this.numArcs; i++) {
             this.rotationSpeed = this.arcSpeed + i * this.arcSpeed * arcSpeedDiff;
             if(this.twoSideSpin) {
@@ -111,7 +115,7 @@ export class Game {
                     this.rotationSpeed = -this.rotationSpeed;
                 }
             }
-            this.newArc = new Arc(this.centerY, this.centerX, this.radius + i * (this.arcGap + this.arcThickness),
+            this.newArc = new Arc(this.centerY, this.centerX, this.arcsColor, this.radius + i * (this.arcGap + this.arcThickness),
                 this.gapAngle, this.rotationSpeed, this.arcThickness, this.startAngle);
             if(this.spinOnPass) {
                 if(i !== 0) {

@@ -14,6 +14,10 @@
     border: white 2px solid;
 }
 
+input[type="color"]:hover {
+    cursor: pointer;
+}
+
 input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
