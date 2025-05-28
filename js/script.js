@@ -68,19 +68,19 @@ let ballStartSpeed = {value: null};
 
 const sliderConfigs = [
     { id: 'sliderNumArcs', input: 'inputNumArcs', sliderValueRef: numArcs, defaultValue: 20, min: 1, max: 100 },
-    { id: 'sliderArcGap', input: 'inputArcGap', sliderValueRef: arcGap, defaultValue: 25 },
-    { id: 'sliderArcThickness', input: 'inputArcThickness', sliderValueRef: arcThickness, defaultValue: 8 },
-    { id: 'sliderGapAngle', input: 'inputGapAngle', sliderValueRef: gapAngle, defaultValue: 30 },
-    { id: 'sliderArcSpeed', input: 'inputArcSpeed', sliderValueRef: arcSpeed, defaultValue: 20 },
-    { id: 'sliderArcSpeedDiff', input: 'inputArcSpeedDiff', sliderValueRef: arcSpeedDiff, defaultValue: 20 },
-    { id: 'sliderStartAngle', input: 'inputStartAngle', sliderValueRef: startAngle, defaultValue: 135 },
+    { id: 'sliderArcGap', input: 'inputArcGap', sliderValueRef: arcGap, defaultValue: 25, min: 0, max: 50 },
+    { id: 'sliderArcThickness', input: 'inputArcThickness', sliderValueRef: arcThickness, defaultValue: 8, min: 1, max: 20 },
+    { id: 'sliderGapAngle', input: 'inputGapAngle', sliderValueRef: gapAngle, defaultValue: 30, min: 5, max: 355 },
+    { id: 'sliderArcSpeed', input: 'inputArcSpeed', sliderValueRef: arcSpeed, defaultValue: 20, min: 1, max: 200 },
+    { id: 'sliderArcSpeedDiff', input: 'inputArcSpeedDiff', sliderValueRef: arcSpeedDiff, defaultValue: 20, min: 0, max: 200 },
+    { id: 'sliderStartAngle', input: 'inputStartAngle', sliderValueRef: startAngle, defaultValue: 135, min: 0, max: 360 },
 
-    { id: 'sliderBallStartAngle', input: 'inputBallStartAngle', sliderValueRef: ballStartAngle, defaultValue: 270 },
-    { id: 'sliderBallStartSpeed', input: 'inputBallStartSpeed', sliderValueRef: ballStartSpeed, defaultValue: 20 },
-    { id: 'sliderBallRadius', input: 'inputBallRadius', sliderValueRef: ballRadius, defaultValue: 30 },
-    { id: 'sliderDeltaLimit', input: 'inputDeltaLimit', sliderValueRef: deltaLimit, defaultValue: 5 },
-    { id: 'sliderBounceFactor', input: 'inputBounceFactor', sliderValueRef: bounceFactor, defaultValue: 103 },
-    { id: 'sliderMassMultiplier', input: 'inputMassMultiplier', sliderValueRef: massMultiplier, defaultValue: 100 }
+    { id: 'sliderBallStartAngle', input: 'inputBallStartAngle', sliderValueRef: ballStartAngle, defaultValue: 270, min: 0, max: 360 },
+    { id: 'sliderBallStartSpeed', input: 'inputBallStartSpeed', sliderValueRef: ballStartSpeed, defaultValue: 20, min: 0, max: 150 },
+    { id: 'sliderBallRadius', input: 'inputBallRadius', sliderValueRef: ballRadius, defaultValue: 30, min: 5, max: 100 },
+    { id: 'sliderDeltaLimit', input: 'inputDeltaLimit', sliderValueRef: deltaLimit, defaultValue: 5, min: 1, max: 50 },
+    { id: 'sliderBounceFactor', input: 'inputBounceFactor', sliderValueRef: bounceFactor, defaultValue: 103, min: 50, max: 150 },
+    { id: 'sliderMassMultiplier', input: 'inputMassMultiplier', sliderValueRef: massMultiplier, defaultValue: 100, min: 0, max: 500 }
 ];
 
 function initSliders() {
@@ -94,7 +94,21 @@ function initSliders() {
     return sliders;
 }
 
-let slider = initSliders();
+let sliders = initSliders();
+
+let resetArcsSettingsButton = document.getElementById('resetArcsSettingsButton');
+resetArcsSettingsButton.addEventListener('click', (event) => {
+    for (const slider of sliders.slice(0, 7)) {
+        slider.resetToDefaultValue();
+    }
+})
+
+let resetBallSettingsButton = document.getElementById('resetBallSettingsButton');
+resetBallSettingsButton.addEventListener('click', (event) => {
+    for (const slider of sliders.slice(7)) {
+        slider.resetToDefaultValue();
+    }
+})
 
 //endregion
 

@@ -23,6 +23,11 @@ export class Slider {
         this.input.max = maxValue;
         this.input.value = defaultValue;
 
+        this.slider.min = minValue;
+        this.slider.max = maxValue;
+        this.slider.value = defaultValue;
+        this.slider.step = 1;
+
         this.slider.addEventListener('input', () => {
             this.input.value = this.slider.value;
             this.variable.value = parseInt(this.slider.value);
@@ -64,5 +69,11 @@ export class Slider {
             this.slider.value = this.input.value;
             this.variable.value = this.input.value;
         }
+    }
+
+    resetToDefaultValue() {
+        this.variable.value = this.defaultValue;
+        this.input.value = this.defaultValue;
+        this.slider.value = this.defaultValue;
     }
 }
