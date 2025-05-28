@@ -137,10 +137,10 @@ document.getElementById("toggle2").addEventListener("change", function () {
 document.getElementById("toggle3").addEventListener("change", function () {
     spinOnPass = this.checked;
     if(this.checked) {
-        document.getElementById("toggle2").closest(".switch").classList.add("switch--disabled");
+        document.getElementById("toggle2").closest(".switch").classList.add("switch__disabled");
         document.getElementById("toggle2").checked = false;
     } else {
-        document.getElementById("toggle2").closest(".switch").classList.remove("switch--disabled");
+        document.getElementById("toggle2").closest(".switch").classList.remove("switch__disabled");
     }
     //console.log("spinOnPass:", spinOnPass);
 });
