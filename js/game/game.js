@@ -78,12 +78,13 @@ export class Game {
         this.arcsColor = arcsColor;
     }
 
-    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount) {
+    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect) {
         this.directionChange = directionChange;
         this.twoSideSpin = twoSideSpin;
         this.spinOnPass = spinOnPass;
         this.increaseBall = increaseBall;
         this.showArcsCount = showArcsCount;
+        this.arcDestroyEffect = arcDestroyEffect;
     }
 
     newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier,
@@ -191,8 +192,10 @@ export class Game {
 
     onArcPassed(arc) {
         //dropArcs creation
-        this.dropArcs.push(new DropArc(this.centerY, this.centerX, this.canvasElement, arc.arcColor,
-            arc.radius, arc.gapAngle, this.arcThickness, arc.angle, 180));
+        if (this.arcDestroyEffect) {
+            this.dropArcs.push(new DropArc(this.centerY, this.centerX, this.canvasElement, arc.arcColor,
+                arc.radius, arc.gapAngle, this.arcThickness, arc.angle, 180));
+        }
 
         //console.log("Arc is passed", arc);
         if(this.spinOnPass) {
@@ -201,12 +204,14 @@ export class Game {
                 this.arcs[1].startSpin();
             }
         }
+
         if(this.directionChange) {
             this.arcs.forEach(arc => {
                 console.log('Changed');
                 arc.reverseDirection();
             })
         }
+
         if(this.increaseBall) {
             this.ball.setRadius(2);
         }

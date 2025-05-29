@@ -120,6 +120,7 @@ let twoSideSpin = document.getElementById("toggle2").checked;
 let spinOnPass = document.getElementById("toggle3").checked;
 let increaseBall = document.getElementById("toggle4").checked;
 let showArcsCount = document.getElementById("toggle5").checked;
+let arcDestroyEffect = document.getElementById("toggleArcDestroyEffect").checked;
 
 let arcPassSound = document.getElementById("toggle6").checked;
 let ballBounceSound = document.getElementById("toggle7").checked;
@@ -154,6 +155,14 @@ document.getElementById("toggle5").addEventListener("change", function () {
     showArcsCount = this.checked;
     //console.log("showArcsCount:", showArcsCount);
 });
+
+document.getElementById("toggleArcDestroyEffect").addEventListener("change", function () {
+    arcDestroyEffect = this.checked;
+    //console.log("showArcsCount:", showArcsCount);
+});
+
+
+//sounds buttons
 
 document.getElementById("toggle6").addEventListener("change", function () {
     arcPassSound = this.checked;
@@ -208,7 +217,7 @@ initializeGame();
 function initializeGame() {
     game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
     game.setColors(shadowColor, backgroundColor, arcsColor);
-    game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount);
+    game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect);
     game.newGame(
         numArcs.value / 1,
         arcGap.value / 1,
