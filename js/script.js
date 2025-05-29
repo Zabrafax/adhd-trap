@@ -75,8 +75,8 @@ const sliderConfigs = [
     { id: 'sliderArcSpeedDiff', input: 'inputArcSpeedDiff', sliderValueRef: arcSpeedDiff, defaultValue: 20, min: 0, max: 200 },
     { id: 'sliderStartAngle', input: 'inputStartAngle', sliderValueRef: startAngle, defaultValue: 135, min: 0, max: 360 },
 
-    { id: 'sliderBallStartAngle', input: 'inputBallStartAngle', sliderValueRef: ballStartAngle, defaultValue: 270, min: 0, max: 360 },
-    { id: 'sliderBallStartSpeed', input: 'inputBallStartSpeed', sliderValueRef: ballStartSpeed, defaultValue: 20, min: 0, max: 150 },
+    { id: 'sliderBallStartAngle', input: 'inputBallStartAngle', sliderValueRef: ballStartAngle, defaultValue: 105, min: 0, max: 360 },
+    { id: 'sliderBallStartSpeed', input: 'inputBallStartSpeed', sliderValueRef: ballStartSpeed, defaultValue: 12, min: 0, max: 150 },
     { id: 'sliderBallRadius', input: 'inputBallRadius', sliderValueRef: ballRadius, defaultValue: 30, min: 5, max: 100 },
     { id: 'sliderDeltaLimit', input: 'inputDeltaLimit', sliderValueRef: deltaLimit, defaultValue: 5, min: 1, max: 50 },
     { id: 'sliderBounceFactor', input: 'inputBounceFactor', sliderValueRef: bounceFactor, defaultValue: 103, min: 50, max: 150 },

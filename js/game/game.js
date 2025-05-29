@@ -1,7 +1,8 @@
 import { Arc } from './arc.js';
 import { Ball } from './ball.js';
 import { ShadowBall } from './shadowBall.js';
-import {drawScore, hexToRGBA, playSound, sleep, playSound4Sec} from '../utils.js';
+import {drawScore, hexToRGBA, playSound, sleep, playSound4Sec, random} from '../utils.js';
+import {DropArc} from "./dropArc.js";
 
 export class Game {
     ctx;
@@ -28,6 +29,7 @@ export class Game {
 
     arcs = [];
     shadowBalls = [];
+    dropArcs = [];
     ball = null;
     isPaused = false;
 
@@ -170,7 +172,13 @@ export class Game {
         this.shadowBalls.forEach(ball => ball.draw(this.ctx));
         this.ball.draw(this.ctx);
 
+        //drop arcs drawing and deleting
+        this.dropArcs.forEach((dropArc) => dropArc.draw(this.ctx));
+        this.dropArcs = this.dropArcs.filter(dropArc => dropArc.isInBounds());
+        //console.log(this.dropArcs.length);
+
         requestAnimationFrame(this.animate);
+
 
         //pauseGame(5);
     }
@@ -182,6 +190,10 @@ export class Game {
     }
 
     onArcPassed(arc) {
+        //dropArcs creation
+        this.dropArcs.push(new DropArc(this.centerY, this.centerX, this.canvasElement, arc.arcColor,
+            arc.radius, arc.gapAngle, this.arcThickness, arc.angle, 180));
+
         //console.log("Arc is passed", arc);
         if(this.spinOnPass) {
             if (this.arcs.length > 1) {
