@@ -249,14 +249,33 @@ main {
     width: 100%;
     height: fit-content;
 
+    padding: 1rem 2rem;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
+    gap: 0.75rem;
 
     background-color: var(--gray-color);
+    border: 4px solid transparent;
+    border-image: repeating-linear-gradient(
+            45deg,
+            black 0,
+            black 10px,
+            #ecec5e 10px,
+            #ecec5e 20px
+    ) 6;
     border-radius: 1rem;
+}
+
+.video__recording__container > .switch__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .color__container {

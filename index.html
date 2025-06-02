@@ -270,15 +270,17 @@
                 <h1 class="appearance__label">Video recording:</h1>
                 <div class="video__recording__container">
                     <div class="switch__wrapper">
-                        <label for="autoRecordSwitch">Auto recording with new</label>
+                        <label for="autoRecordSwitch">Record with new</label>
                         <div class="switch switch-violet">
                             <input type="checkbox" id="autoRecordSwitch">
                             <label for="autoRecordSwitch"></label>
                         </div>
                     </div>
 
-                    <a class="a__button__download__video violet-theme" id="downloadVideoLink">Download last video</a>
-                    <a class="a__button__download__video red-theme" id="stopRecordButton">Stop record</a>
+                    <div class="current__record__container">
+                        <a class="a__button__video red-theme a__button__video__inactive" id="stopRecordButton">Stop record</a>
+                    </div>
+                    <a class="a__button__video violet-theme a__button__video__inactive" id="downloadVideoLink">Download last video</a>
                 </div>
 
                 <h1 class="appearance__label">Colors:</h1>

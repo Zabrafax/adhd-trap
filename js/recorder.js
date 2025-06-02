@@ -1,14 +1,17 @@
 export class Recorder {
-    constructor(canvas, downloadButton) {
+    constructor(canvas, downloadButton, stopRecordButton) {
         this.canvas = canvas;
         this.downloadButton = downloadButton;
+        this.stopRecordButton = stopRecordButton;
     }
 
     startRecord() {
         if (this.mediaRecorder != null) {
             this.mediaRecorder.stop();
+            this.downloadButton.classList.add("a__button__video__inactive");
         }
         console.log("Starting Recorder");
+        this.stopRecordButton.classList.remove("a__button__video__inactive");
 
         this.canvasStream = this.canvas.captureStream(60);
         this.mediaRecorder = new MediaRecorder(this.canvasStream, { mimeType: "video/webm" });
@@ -24,6 +27,9 @@ export class Recorder {
 
             this.downloadButton.href = videoUrl;
             this.downloadButton.download = "ADHDBall.webm";
+
+            this.downloadButton.classList.remove("a__button__video__inactive");
+            this.stopRecordButton.classList.add("a__button__video__inactive");
         };
 
         this.mediaRecorder.start();

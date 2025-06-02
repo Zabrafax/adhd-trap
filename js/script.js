@@ -217,7 +217,7 @@ colorPicker3.addEventListener("input", (event) => {
 const downloadButton = document.getElementById("downloadVideoLink");
 const stopRecordButton = document.getElementById("stopRecordButton");
 
-let recorder = new Recorder(canvasElement, downloadButton);
+let recorder = new Recorder(canvasElement, downloadButton, stopRecordButton);
 
 stopRecordButton.addEventListener("click", (e) => {
     recorder.stopRecord();
