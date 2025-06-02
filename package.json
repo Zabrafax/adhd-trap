@@ -1,0 +1,32 @@
+{
+  "name": "adhd-trap",
+  "version": "1.0.0",
+  "description": "ADHD Bounce Ball Trap",
+  "keywords": [
+    "frontend",
+    "html",
+    "javascript",
+    "interactive",
+    "adhd",
+    "bounce"
+  ],
+  "homepage": "https://github.com/Zabrafax/ADHD-Trap#readme",
+  "bugs": {
+    "url": "https://github.com/Zabrafax/ADHD-Trap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zabrafax/ADHD-Trap.git"
+  },
+  "license": "ISC",
+  "author": "Aliaksandr Semutsenka",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "live-server"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
