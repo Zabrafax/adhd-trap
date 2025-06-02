@@ -1,3 +1,30 @@
+.a__button__download__video {
+    width: fit-content;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 5px 20px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    color: var(--black-text-color);
+    background-color: var(--button-color-pastel, var(--color-button-default-1));
+    box-shadow: 0 0 2rem var(--button-color-bright, var(--color-button-default-2));
+    transition: 200ms;
+
+    border-radius: 0.5rem;
+
+    cursor: pointer;
+}
+
+.a__button__download__video:hover {
+    background: var(--button-color-pressed, var(--color-button-default-3));
+}
+
+.a__button__download__video:active {
+    box-shadow: none;
+}
+
 .button__reset {
     width: fit-content;
 

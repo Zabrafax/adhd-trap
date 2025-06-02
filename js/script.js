@@ -1,6 +1,7 @@
 import {Slider} from "./slider.js";
 import {Game} from "./game/game.js";
 import {initializeDropzone} from "./dropzone.js"
+import {Recorder} from "./recorder.js";
 
 const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
@@ -210,11 +211,37 @@ colorPicker3.addEventListener("input", (event) => {
 
 //endregion
 
+/////////                     Video Recording                ///////////////
+//region
+
+const downloadButton = document.getElementById("downloadVideoLink");
+const stopRecordButton = document.getElementById("stopRecordButton");
+
+let recorder = new Recorder(canvasElement, downloadButton);
+
+stopRecordButton.addEventListener("click", (e) => {
+    recorder.stopRecord();
+})
+
+let autoRecordSwitch = document.getElementById("autoRecordSwitch");
+let autoRecord = autoRecordSwitch.checked;
+autoRecordSwitch.addEventListener("change", function () {
+    autoRecord = this.checked;
+});
+
+//endregion
+
 ////////////////////////////////////////////////////// Game /////////////////////////////////
 
 initializeGame();
 
 function initializeGame() {
+    recorder.stopRecord();
+
+    if (autoRecord) {
+        recorder.startRecord();
+    }
+
     game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
     game.setColors(shadowColor, backgroundColor, arcsColor);
     game.setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect);

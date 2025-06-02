@@ -11,13 +11,16 @@
     --color-background: #575757;
     --color-footer: #171717;
     --canvas-background: #000000;
+
+    --gray-color: #868686;
+
     --text-color: #fff;
+    --black-text-color: #2b2b2b;
 
     --color-button-default-1: #9eff8e;
     --color-button-default-2: #48ff4e;
     --color-button-default-3: #11ff17;
     --text-button-default: #ffffff;
-    --color-main: #373737;
 
     --color-button-violet-1: #b164ff;
     --color-button-violet-2: #9a3efd;
@@ -195,6 +198,7 @@ main {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .switch__dropzone__container {
@@ -239,6 +243,20 @@ main {
 
 .appearance__container {
     grid-area: auto / 2 / 3 / 3;
+}
+
+.video__recording__container {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    background-color: var(--gray-color);
+    border-radius: 1rem;
 }
 
 .color__container {
