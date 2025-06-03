@@ -1,7 +1,7 @@
 import {hexToRGBA} from "../utils.js";
 
 export class Arc {
-    constructor(centerY, centerX, arcColor, radius, gapAngle, rotationSpeed, arcThickness, angle) {
+    constructor(centerY, centerX, arcColor, radius, gapAngle, rotationSpeed, arcThickness, angle, drawArcTick) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.arcColor = arcColor;
@@ -11,6 +11,8 @@ export class Arc {
         this.holdSpeed = rotationSpeed;
         this.arcThickness = arcThickness;
         this.angle = (angle - 90 - gapAngle / 2) * (Math.PI / 180);
+
+        this.drawArcTick = drawArcTick;
     }
 
     isInGap(angle) {
@@ -72,8 +74,10 @@ export class Arc {
         ctx.stroke();
         ctx.closePath();
 
-        this.drawTick(ctx, this.angle + this.gapAngle);
-        this.drawTick(ctx, this.angle);
+        if (this.drawArcTick) {
+            this.drawTick(ctx, this.angle + this.gapAngle);
+            this.drawTick(ctx, this.angle);
+        }
 
         this.angle += this.rotationSpeed;
         if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;

@@ -39,6 +39,8 @@ export class Game {
     spinOnPass = false;
     increaseBall = false;
     showArcsCount = false;
+    arcDestroyEffect = false;
+    drawArcTick = false;
 
     arcPassSound = false;
     ballBounceSound = false;
@@ -80,13 +82,14 @@ export class Game {
         this.arcsColor = arcsColor;
     }
 
-    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect) {
+    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect, drawArcTick) {
         this.directionChange = directionChange;
         this.twoSideSpin = twoSideSpin;
         this.spinOnPass = spinOnPass;
         this.increaseBall = increaseBall;
         this.showArcsCount = showArcsCount;
         this.arcDestroyEffect = arcDestroyEffect;
+        this.drawArcTick = drawArcTick;
     }
 
     newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier,
@@ -121,7 +124,7 @@ export class Game {
                 }
             }
             this.newArc = new Arc(this.centerY, this.centerX, this.arcsColor, this.radius + i * (this.arcGap + this.arcThickness),
-                this.gapAngle, this.rotationSpeed, this.arcThickness, this.startAngle);
+                this.gapAngle, this.rotationSpeed, this.arcThickness, this.startAngle, this.drawArcTick);
             if(this.spinOnPass) {
                 if(i !== 0) {
                     this.newArc.holdSpin();
