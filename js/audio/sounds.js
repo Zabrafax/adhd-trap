@@ -2,7 +2,10 @@ export const audioContext = new AudioContext();
 export const audioDestination = audioContext.createMediaStreamDestination();
 export const activeAudios = new Set();
 
-export function playSound(path, volume) {
+export async function playSound(path, volume) {
+    if (audioContext.state === "suspended") {
+        await audioContext.resume();
+    }
     const audio = new Audio(path);
     audio.loop = false;
 
@@ -26,7 +29,10 @@ export function playSound(path, volume) {
     audio.play();
 }
 
-export function playSoundInDuration(path, volume, timeInMillis) {
+export async function playSoundInDuration(path, volume, timeInMillis) {
+    if (audioContext.state === "suspended") {
+        await audioContext.resume();
+    }
     const timeout = timeInMillis - 2000;
     const audio = new Audio(path);
     audio.loop = false;
