@@ -3,6 +3,9 @@ import {Game} from "./game/game.js";
 import {initializeDropzone} from "./dropzone.js"
 import {Recorder} from "./recorder.js";
 import {stopAllSounds} from "./audio/sounds.js";
+import {autoResize} from "./resize.js";
+
+autoResize();
 
 const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
