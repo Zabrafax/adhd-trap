@@ -15,8 +15,10 @@ export class DropArc {
 
         this.pieces = [];
 
-        let currAngle = 0;
-        const angleDelta = 360 / this.piecesAmount * Math.PI / 180;
+        this.piecesAmount *= (2 * Math.PI - this.gapAngle) / (2 * Math.PI);
+
+        let currAngle = this.angle + this.gapAngle;
+        const angleDelta =  (2 * Math.PI - gapAngle) / this.piecesAmount;
         for (let i = 0; i < this.piecesAmount; i++) {
             const x = this.centerX + this.radius * Math.cos(currAngle);
             const y = this.centerY + this.radius * Math.sin(currAngle);
