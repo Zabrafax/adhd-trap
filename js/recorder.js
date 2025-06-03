@@ -1,20 +1,24 @@
+import { audioContext, audioDestination } from "./audio/sounds.js";
+
 export class Recorder {
     constructor(canvas, downloadButton, stopRecordButton) {
         this.canvas = canvas;
         this.downloadButton = downloadButton;
         this.stopRecordButton = stopRecordButton;
+        this.audioStream = audioDestination.stream;
     }
 
     startRecord() {
-        if (this.mediaRecorder != null) {
-            this.mediaRecorder.stop();
-            this.downloadButton.classList.add("a__button__video__inactive");
-        }
+        this.downloadButton.classList.add("a__button__video__inactive");
         console.log("Starting Recorder");
         this.stopRecordButton.classList.remove("a__button__video__inactive");
 
         this.canvasStream = this.canvas.captureStream(60);
-        this.mediaRecorder = new MediaRecorder(this.canvasStream, { mimeType: "video/webm" });
+        const combinedStream = new MediaStream([
+            ...this.canvasStream.getVideoTracks(),
+            ...this.audioStream.getAudioTracks()
+        ]);
+        this.mediaRecorder = new MediaRecorder(combinedStream, { mimeType: "video/webm" });
 
         this.chunks = [];
         this.mediaRecorder.ondataavailable = (e) => {
@@ -27,9 +31,6 @@ export class Recorder {
 
             this.downloadButton.href = videoUrl;
             this.downloadButton.download = "ADHDBall.webm";
-
-            this.downloadButton.classList.remove("a__button__video__inactive");
-            this.stopRecordButton.classList.add("a__button__video__inactive");
         };
 
         this.mediaRecorder.start();
@@ -38,7 +39,16 @@ export class Recorder {
     stopRecord() {
         if (this.mediaRecorder && (this.mediaRecorder.state === "recording" || this.mediaRecorder.state === "recording")) {
             console.log("Recorder stopped");
+            this.downloadButton.classList.remove("a__button__video__inactive");
+            this.stopRecordButton.classList.add("a__button__video__inactive");
+
             this.mediaRecorder.stop();
+
+            this.canvasStream.getTracks().forEach(track => track.stop());
+
+            this.canvasStream = null;
+            this.audioStream = null;
+            this.mediaRecorder = null;
         }
     }
 }

@@ -2,20 +2,11 @@ import {Slider} from "./slider.js";
 import {Game} from "./game/game.js";
 import {initializeDropzone} from "./dropzone.js"
 import {Recorder} from "./recorder.js";
+import {stopAllSounds} from "./audio/sounds.js";
 
 const canvasElement = document.getElementById("canvas");
 const container = document.querySelector(".canvas__container");
 const ctx = canvasElement.getContext("2d");
-
-let game = new Game();
-
-function resizeCanvas() {
-    canvasElement.width = 1600;
-    canvasElement.height = 1600;
-
-    game.updateCtx(canvasElement, ctx);
-}
-resizeCanvas();
 
 /////////        Pause and start buttons                     ///////////////
 //region
@@ -217,8 +208,6 @@ colorPicker3.addEventListener("input", (event) => {
 const downloadButton = document.getElementById("downloadVideoLink");
 const stopRecordButton = document.getElementById("stopRecordButton");
 
-let recorder = new Recorder(canvasElement, downloadButton, stopRecordButton);
-
 stopRecordButton.addEventListener("click", (e) => {
     recorder.stopRecord();
 })
@@ -233,14 +222,27 @@ autoRecordSwitch.addEventListener("change", function () {
 
 ////////////////////////////////////////////////////// Game /////////////////////////////////
 
+let recorder;
+let game;
 initializeGame();
 
 function initializeGame() {
-    recorder.stopRecord();
+    stopAllSounds();
 
+    if (game != null) {
+        game.stop();
+    }
+    resizeCanvas();
+    game = new Game();
+    game.updateCtx(canvasElement, ctx);
+
+    recorder = new Recorder(canvasElement, downloadButton, stopRecordButton);
     if (autoRecord) {
         recorder.startRecord();
     }
+    game.setOnGameEndCallback(() => {
+        recorder.stopRecord();
+    });
 
     game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
     game.setColors(shadowColor, backgroundColor, arcsColor);
@@ -260,6 +262,11 @@ function initializeGame() {
         ballStartAngle.value / 1,
         ballStartSpeed.value / 10,
     );
+
+    game.animate();
 }
 
-game.animate();
+function resizeCanvas() {
+    canvasElement.width = 1600;
+    canvasElement.height = 1600;
+}

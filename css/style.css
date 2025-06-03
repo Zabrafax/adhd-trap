@@ -302,7 +302,12 @@ main {
 }
 
 .appearance__label {
+    margin-bottom: 0.5rem;
     font-weight: 400;
+}
+
+.appearance__label:not(:first-child) {
+    margin-top: 1rem;
 }
 
 footer {

@@ -1,7 +1,7 @@
 import { Arc } from './arc.js';
 import { Ball } from './ball.js';
 import { ShadowBall } from './shadowBall.js';
-import {playSound, playSoundInDuration} from '../audio/sounds.js';
+import {activeAudios, playSound, playSoundInDuration} from '../audio/sounds.js';
 import {drawScore, hexToRGBA, sleep, random} from '../utils.js';
 import {DropArc} from "./dropArc.js";
 
@@ -55,6 +55,7 @@ export class Game {
 
     constructor() {
         this.animate = this.animate.bind(this);
+        this.onGameEnd = null;
     }
 
     updateCtx(canvasElement, ctx) {
@@ -136,9 +137,14 @@ export class Game {
     }
 
     animate() {
+        //console.log('animate');
         //console.log(this.arcSpeed);
         if (this.isPaused) {
             requestAnimationFrame(this.animate);
+            return;
+        }
+
+        if (this.isFinished) {
             return;
         }
 
@@ -179,10 +185,30 @@ export class Game {
         this.dropArcs = this.dropArcs.filter(dropArc => dropArc.isInBounds());
         //console.log(this.dropArcs.length);
 
+        if (!this.ball.isInBounds() && this.dropArcs.length === 0 && activeAudios.size === 0) {
+            this.isFinished = true;
+            //console.log('Is finished');
+            if (this.onGameEnd) {
+                this.onGameEnd();
+            }
+        }
+
         requestAnimationFrame(this.animate);
 
 
         //pauseGame(5);
+    }
+
+    stop() {
+        this.isFinished = true;
+        //console.log('Is stopped');
+        if (this.onGameEnd) {
+            this.onGameEnd();
+        }
+    }
+
+    setOnGameEndCallback(callback) {
+        this.onGameEnd = callback;
     }
 
     async pauseGame(ms) {
@@ -208,7 +234,7 @@ export class Game {
 
         if(this.directionChange) {
             this.arcs.forEach(arc => {
-                console.log('Changed');
+                //console.log('Changed');
                 arc.reverseDirection();
             })
         }

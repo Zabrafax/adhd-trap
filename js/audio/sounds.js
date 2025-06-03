@@ -1,4 +1,6 @@
-import { audioContext, audioDestination } from "./audioSetup.js";
+export const audioContext = new AudioContext();
+export const audioDestination = audioContext.createMediaStreamDestination();
+export const activeAudios = new Set();
 
 export function playSound(path, volume) {
     const audio = new Audio(path);
@@ -9,13 +11,16 @@ export function playSound(path, volume) {
     const gainNode = audioContext.createGain();
     gainNode.gain.value = volume;
 
-    track.connect(gainNode).connect(audioDestination);
+    track.connect(gainNode);
+
     gainNode.connect(audioContext.destination);
+    gainNode.connect(audioDestination);
+
+    const audioEntry = { audio, track, gainNode };
+    activeAudios.add(audioEntry);
 
     audio.addEventListener("ended", () => {
-        track.disconnect();
-        gainNode.disconnect();
-        audio.src = "";
+        stopSingleSound(audioEntry);
     });
 
     audio.play();
@@ -31,20 +36,46 @@ export function playSoundInDuration(path, volume, timeInMillis) {
     const gainNode = audioContext.createGain();
     gainNode.gain.value = volume;
 
-    track.connect(gainNode).connect(audioDestination);
-    gainNode.connect(audioContext.destination);
+    track.connect(gainNode);
 
-    audio.play();
+    gainNode.connect(audioContext.destination);
+    gainNode.connect(audioDestination);
+
+    const audioEntry = { audio, track, gainNode };
+    activeAudios.add(audioEntry);
 
     setTimeout(() => {
         gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 2);
     }, timeout);
 
+    setTimeout(() => {
+        stopSingleSound(audioEntry);
+    }, timeInMillis + 100);
+
     audio.addEventListener("ended", () => {
-        track.disconnect();
-        gainNode.disconnect();
-        audio.src = "";
+        stopSingleSound(audioEntry);
     });
 
     audio.play();
+}
+
+
+export function stopAllSounds() {
+    for (const entry of activeAudios) {
+        stopSingleSound(entry);
+    }
+}
+
+function stopSingleSound(entry) {
+    const { audio, track, gainNode } = entry;
+    try {
+        audio.pause();
+        audio.currentTime = 0;
+        track.disconnect();
+        gainNode.disconnect();
+        audio.src = "";
+    } catch (e) {
+        console.warn("Error while manual audio stop:", e);
+    }
+    activeAudios.delete(entry);
 }

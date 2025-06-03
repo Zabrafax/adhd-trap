@@ -44,12 +44,15 @@ export class Ball {
         //console.log(this.deltaLimit);
         this.dy += this.gravity;
 
-        if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
-            this.dx *= -this.bounceFactor;
-        }
-        if (this._y - this._ballRadius < 0 || this._y + this._ballRadius > this.canvas.height) {
-            this.dy *= -this.bounceFactor;
-        }
+        /*
+            Bounce in canvas when there are no arcs (disabled)
+         */
+        // if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
+        //     this.dx *= -this.bounceFactor;
+        // }
+        // if (this._y - this._ballRadius < 0 || this._y + this._ballRadius > this.canvas.height) {
+        //     this.dy *= -this.bounceFactor;
+        // }
 
         for (let arc of arcs) {
             const contact = arc.hasCollisionInside(this._y + this.dy, this._x + this.dx, this._ballRadius);
@@ -158,6 +161,11 @@ export class Ball {
 
     get x() {
         return this._x;
+    }
+
+    isInBounds() {
+        return this._x - this._ballRadius > 0 && this._x + this._ballRadius < this.canvas.width &&
+            this._y - this._ballRadius > 0 && this._y + this._ballRadius < this.canvas.height;
     }
 
     get ballRadius() {
