@@ -1,4 +1,5 @@
-import {playSound, random, playSound4Sec} from "../utils.js";
+import {random} from "../utils.js";
+import {playSound, playSoundInDuration} from '../audio/sounds.js';
 
 export class Ball {
     bounceSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
@@ -129,7 +130,7 @@ export class Ball {
     playBounceSound() {
         if(this.ballBounceSound) {
             if(this.ballBounceSoundFile != null) {
-                playSound4Sec(URL.createObjectURL(this.ballBounceSoundFile), 0.7);
+                playSoundInDuration(URL.createObjectURL(this.ballBounceSoundFile), 0.7, 4000);
             }
             else {
                 playSound(this.bounceSoundDefault, 0.5);
