@@ -33,7 +33,7 @@ export async function playSoundInDuration(path, volume, timeInMillis) {
     if (audioContext.state === "suspended") {
         await audioContext.resume();
     }
-    const timeout = timeInMillis - 2000;
+    const timeout = timeInMillis - 1000;
     const audio = new Audio(path);
     audio.loop = false;
 
@@ -51,7 +51,7 @@ export async function playSoundInDuration(path, volume, timeInMillis) {
     activeAudios.add(audioEntry);
 
     setTimeout(() => {
-        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 2);
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 1);
     }, timeout);
 
     setTimeout(() => {

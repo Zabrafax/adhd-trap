@@ -10,7 +10,9 @@ autoResize();
 const canvasElement = document.getElementById("canvas");
 const ctx = canvasElement.getContext("2d");
 
-/////////        Pause and start buttons                     ///////////////
+/*
+    Pause and start buttons.
+ */
 //region
 
 const startButton = document.getElementById('startButton');
@@ -43,7 +45,9 @@ pauseButton.addEventListener('click', function() {
 
 //endregion
 
-/////////        Sliders and variables initializing          ///////////////
+/*
+    Sliders and variables initializing.
+ */
 //region
 let numArcs = {value: null};
 let arcGap = {value: null};
@@ -106,7 +110,9 @@ resetBallSettingsButton.addEventListener('click', (event) => {
 
 //endregion
 
-/////////        Buttons and variables initializing          ///////////////
+/*
+    Buttons and variables initializing.
+ */
 //region
 
 let directionChange = document.getElementById("toggle1").checked;
@@ -182,7 +188,9 @@ document.getElementById("toggle7").addEventListener("change", function () {
 
 //endregion
 
-/////////        Dropzones and variables initializing        ///////////////
+/*
+    Sounds drop zones, sliders and variables initializing.
+ */
 //region
 
 let arcPassSoundFile = {value: null};
@@ -191,9 +199,33 @@ let ballBounceSoundFile = {value: null};
 initializeDropzone('dropzone1', 'fileName1', arcPassSoundFile);
 initializeDropzone('dropzone2', 'fileName2', ballBounceSoundFile);
 
+
+let passSoundDuration = {value: null};
+let bounceSoundDuration = {value: null};
+
+const soundSliderConfigs = [
+    { id: 'sliderPassSoundDuration', input: 'inputPassSoundDuration', sliderValueRef: passSoundDuration, defaultValue: 4, min: 1, max: 20 },
+    { id: 'sliderBounceSoundDuration', input: 'inputBounceSoundDuration', sliderValueRef: bounceSoundDuration, defaultValue: 4, min: 1, max: 20 }
+];
+
+function initSoundSliders() {
+    const sliders = [];
+
+    for (const cfg of soundSliderConfigs) {
+        const s = new Slider(cfg.id, cfg.input, cfg.sliderValueRef, cfg.defaultValue, cfg.min, cfg.max);
+        sliders.push(s);
+    }
+
+    return sliders;
+}
+initSoundSliders();
+
+
 //endregion
 
-/////////                     Colors                         ///////////////
+/*
+    Colors.
+ */
 //region
 
 let shadowColor = document.getElementById("color1").value;
@@ -258,8 +290,21 @@ function initializeGame() {
         recorder.stopRecord();
     });
 
-    game.setSounds(arcPassSound, ballBounceSound, arcPassSoundFile.value, ballBounceSoundFile.value);
-    game.setColors(shadowColor, backgroundColor, arcsColor);
+    game.setSounds(
+        arcPassSound,
+        ballBounceSound,
+        arcPassSoundFile.value,
+        ballBounceSoundFile.value,
+        passSoundDuration.value / 1,
+        bounceSoundDuration.value / 1
+    );
+
+    game.setColors(
+        shadowColor,
+        backgroundColor,
+        arcsColor
+    );
+
     game.setEffects(
         directionChange,
         twoSideSpin,
@@ -268,7 +313,9 @@ function initializeGame() {
         showArcsCount,
         arcDestroyEffect,
         drawArcTick,
-        arcsSizeDecrease);
+        arcsSizeDecrease
+    );
+
     game.newGame(
         numArcs.value / 1,
         arcGap.value / 1,

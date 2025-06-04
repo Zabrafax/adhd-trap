@@ -47,6 +47,8 @@ export class Game {
     ballBounceSound = false;
     arcPassSoundFile = null;
     ballBounceSoundFile = null;
+    passSoundDuration;
+    bounceSoundDuration;
 
     //colors
     shadowColor;
@@ -70,11 +72,13 @@ export class Game {
         this.radius = Math.min(canvasElement.width, canvasElement.height) / 20;
     }
 
-    setSounds(arcPassSound, ballBounceSound, arcPassSoundFile, ballBounceSoundFile) {
+    setSounds(arcPassSound, ballBounceSound, arcPassSoundFile, ballBounceSoundFile, passSoundDuration, bounceSoundDuration) {
         this.arcPassSound = arcPassSound;
         this.ballBounceSound = ballBounceSound;
         this.arcPassSoundFile = arcPassSoundFile;
         this.ballBounceSoundFile = ballBounceSoundFile;
+        this.passSoundDuration = passSoundDuration;
+        this.bounceSoundDuration = bounceSoundDuration;
     }
 
     setColors(shadowColor, backgroundColor, arcsColor) {
@@ -135,8 +139,9 @@ export class Game {
             this.arcs.push(this.newArc);
         }
         //ball
-        this.ball = new Ball(this.centerY + 10, this.centerX, this.ballStartAngle, this.ballStartSpeed, this.ballRadius, this.deltaLimit,
-            this.canvasElement, this.bounceFactor, this.massMultiplier, this.ballBounceSound, this.ballBounceSoundFile);
+        this.ball = new Ball(this.centerY + 10, this.centerX, this.ballStartAngle, this.ballStartSpeed,
+            this.ballRadius, this.deltaLimit, this.canvasElement, this.bounceFactor, this.massMultiplier,
+            this.ballBounceSound, this.ballBounceSoundFile, this.bounceSoundDuration);
 
         this.isPaused = false;
     }
@@ -264,7 +269,7 @@ export class Game {
 
         if(this.arcPassSound) {
             if(this.arcPassSoundFile != null) {
-                playSoundInDuration(URL.createObjectURL(this.arcPassSoundFile), 0.7, 4000);
+                playSoundInDuration(URL.createObjectURL(this.arcPassSoundFile), 0.7, this.passSoundDuration * 1000);
             }
             else {
                 playSound(this.passSoundDefault, 0.5);

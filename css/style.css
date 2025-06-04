@@ -208,6 +208,10 @@ main {
 }
 
 .switch__dropzone__container:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.slider__sounds:not(:last-child) {
     margin-bottom: 1rem;
 }
 

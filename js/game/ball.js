@@ -6,7 +6,7 @@ export class Ball {
     bounceSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
 
     constructor(y, x, ballStartAngle, startSpeed, ballRadius, deltaLimitFactor, canvas, bounceFactor,
-                massMultiplier, ballBounceSound, ballBounceSoundFile) {
+                massMultiplier, ballBounceSound, ballBounceSoundFile, bounceSoundDuration) {
         this.deltaLimitFactor = deltaLimitFactor;
         this.canvas = canvas;
         this.dx = startSpeed * Math.cos((ballStartAngle - 90) * (Math.PI / 180));
@@ -20,6 +20,7 @@ export class Ball {
         this.deltaLimit = 0;
         this.ballBounceSound = ballBounceSound;
         this.ballBounceSoundFile = ballBounceSoundFile;
+        this.bounceSoundDuration = bounceSoundDuration;
 
         this.calculateParam();
     }
@@ -161,7 +162,7 @@ export class Ball {
     playBounceSound() {
         if(this.ballBounceSound) {
             if(this.ballBounceSoundFile != null) {
-                playSoundInDuration(URL.createObjectURL(this.ballBounceSoundFile), 0.7, 4000);
+                playSoundInDuration(URL.createObjectURL(this.ballBounceSoundFile), 0.7, this.bounceSoundDuration * 1000);
             }
             else {
                 playSound(this.bounceSoundDefault, 0.5);
