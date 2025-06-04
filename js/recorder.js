@@ -10,7 +10,7 @@ export class Recorder {
 
     startRecord() {
         this.downloadButton.classList.add("a__button__video__inactive");
-        console.log("Starting Recorder");
+        //console.log("Starting Recorder");
         this.stopRecordButton.classList.remove("a__button__video__inactive");
 
         this.canvasStream = this.canvas.captureStream(60);
@@ -18,7 +18,10 @@ export class Recorder {
             ...this.canvasStream.getVideoTracks(),
             ...this.audioStream.getAudioTracks()
         ]);
-        this.mediaRecorder = new MediaRecorder(combinedStream, { mimeType: "video/webm" });
+        this.mediaRecorder = new MediaRecorder(combinedStream, {
+            mimeType: "video/webm;codecs=vp8",
+            videoBitsPerSecond: 4_000_000
+        });
 
         this.chunks = [];
         this.mediaRecorder.ondataavailable = (e) => {
@@ -38,7 +41,7 @@ export class Recorder {
 
     stopRecord() {
         if (this.mediaRecorder && (this.mediaRecorder.state === "recording" || this.mediaRecorder.state === "recording")) {
-            console.log("Recorder stopped");
+            //console.log("Recorder stopped");
             this.downloadButton.classList.remove("a__button__video__inactive");
             this.stopRecordButton.classList.add("a__button__video__inactive");
 

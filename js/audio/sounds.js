@@ -2,6 +2,20 @@ export const audioContext = new AudioContext();
 export const audioDestination = audioContext.createMediaStreamDestination();
 export const activeAudios = new Set();
 
+/*
+    Silent sound creation for record
+ */
+const silentOscillator = audioContext.createOscillator();
+const silentGain = audioContext.createGain();
+
+silentOscillator.frequency.value = 20;
+silentGain.gain.value = 0.00001;
+
+silentOscillator.connect(silentGain);
+silentGain.connect(audioDestination);
+
+silentOscillator.start();
+
 export async function playSound(path, volume) {
     if (audioContext.state === "suspended") {
         await audioContext.resume();

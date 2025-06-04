@@ -200,7 +200,7 @@ export class Game {
         this.dropArcs = this.dropArcs.filter(dropArc => dropArc.isInBounds());
         //console.log(this.dropArcs.length);
 
-        if (!this.ball.isInBounds() && this.dropArcs.length === 0 && activeAudios.size === 0) {
+        if (!this.ball.isInBounds() && this.dropArcs.length === 0 && activeAudios.size === 0 && this.arcs.length === 0) {
             this.isFinished = true;
             //console.log('Is finished');
             if (this.onGameEnd) {
