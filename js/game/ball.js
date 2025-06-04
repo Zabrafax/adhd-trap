@@ -55,14 +55,14 @@ export class Ball {
             //console.log('Ball centers: ' + this._y + ', ' + this._x);
             //console.log('Arc centers: ' + arc.centerY + ', ' + arc.centerX);
             //console.log('Sin and cos:' + currentSin + ', ' + currentCos);
-            console.log('Current distance: ' + currentDistance);
+            //console.log('Current distance: ' + currentDistance);
             //console.log('Smallest radius: ' + (smallestRadius - arc.arcThickness));
-            console.log('New distance: ' + newDistance);
+            //console.log('New distance: ' + newDistance);
             this._x = arc.centerX + newDistance * currentSin;
             this._y = arc.centerY + newDistance * currentCos;
             //this._x = canvasCenterX;
             //this._y = canvasCenterY;
-            console.log('Fixed with new pos: ' + this._y + ', ' + this._x);
+            //console.log('Fixed with new pos: ' + this._y + ', ' + this._x);
         }
     }
 

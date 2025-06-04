@@ -41,6 +41,7 @@ export class Game {
     showArcsCount = false;
     arcDestroyEffect = false;
     drawArcTick = false;
+    arcsSizeDecrease = false;
 
     arcPassSound = false;
     ballBounceSound = false;
@@ -82,7 +83,7 @@ export class Game {
         this.arcsColor = arcsColor;
     }
 
-    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect, drawArcTick) {
+    setEffects(directionChange, twoSideSpin, spinOnPass, increaseBall, showArcsCount, arcDestroyEffect, drawArcTick, arcsSizeDecrease) {
         this.directionChange = directionChange;
         this.twoSideSpin = twoSideSpin;
         this.spinOnPass = spinOnPass;
@@ -90,6 +91,7 @@ export class Game {
         this.showArcsCount = showArcsCount;
         this.arcDestroyEffect = arcDestroyEffect;
         this.drawArcTick = drawArcTick;
+        this.arcsSizeDecrease = arcsSizeDecrease;
     }
 
     newGame(numArcs, arcGap, arcThickness, gapAngle, arcSpeed, ballRadius, deltaLimit, bounceFactor, massMultiplier,
@@ -172,7 +174,6 @@ export class Game {
         this.arcs = this.arcs.filter(arc => {
             if (arc.hasGoneThrough(this.ball.y, this.ball.x, this.ball.ballRadius)) {
                 this.onArcPassed(arc);
-                this.afterArcPassed(arc);
                 return false;
             }
             return true;
@@ -180,12 +181,16 @@ export class Game {
 
         if(this.showArcsCount) drawScore(this.centerY, this.centerX, this.ctx, this.arcs.length);
 
-        //arc, shadow, ball drawing
+        /*
+            Arc, shadow and ball drawing.
+         */
         this.arcs.forEach(arc => arc.draw(this.ctx));
         this.shadowBalls.forEach(ball => ball.draw(this.ctx));
         this.ball.draw(this.ctx);
 
-        //drop arcs drawing and deleting
+        /*
+            dropArcs drawing and deleting.
+         */
         this.dropArcs.forEach((dropArc) => dropArc.draw(this.ctx));
         this.dropArcs = this.dropArcs.filter(dropArc => dropArc.isInBounds());
         //console.log(this.dropArcs.length);
@@ -198,17 +203,8 @@ export class Game {
             }
         }
 
-
-
         requestAnimationFrame(this.animate);
         //console.log(activeAudios.size);
-    }
-
-    afterArcPassed(arc) {
-        this.arcs.forEach(arc => {
-            arc.updateRadius(arc.expectedRadius - (this.arcGap + this.arcThickness));
-            arc.setBall(this.ball);
-        });
     }
 
     stop() {
@@ -230,13 +226,24 @@ export class Game {
     }
 
     onArcPassed(arc) {
-        //dropArcs creation
+        /*
+            Arcs size decrease.
+         */
+        if (this.arcsSizeDecrease) {
+            this.arcs.forEach(arc => {
+                arc.updateRadius(arc.expectedRadius - (this.arcGap + this.arcThickness), 40);
+                arc.setBall(this.ball);
+            });
+        }
+
+        /*
+            dropArcs creation.
+         */
         if (this.arcDestroyEffect) {
             this.dropArcs.push(new DropArc(this.centerY, this.centerX, this.canvasElement, arc.arcColor,
                 arc.radius, arc.gapAngle, this.arcThickness, arc.angle, 180));
         }
 
-        //console.log("Arc is passed", arc);
         if(this.spinOnPass) {
             if (this.arcs.length > 1) {
                 //1 because 0 isn't deleted yet

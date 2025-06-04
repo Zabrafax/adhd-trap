@@ -117,7 +117,7 @@ export class Arc {
         ctx.closePath();
     }
 
-    updateRadius(newRadius, stepsCount = 40) {
+    updateRadius(newRadius, stepsCount = 10) {
         //console.log('Set radius update to: ' + newRadius);
         this.radiusScaleDelta = (newRadius - this.radius) / stepsCount;
         this.radiusScaleStepsCount = stepsCount;
