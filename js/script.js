@@ -8,7 +8,6 @@ import {autoResize} from "./resize.js";
 autoResize();
 
 const canvasElement = document.getElementById("canvas");
-const container = document.querySelector(".canvas__container");
 const ctx = canvasElement.getContext("2d");
 
 /////////        Pause and start buttons                     ///////////////

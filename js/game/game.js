@@ -198,7 +198,7 @@ export class Game {
 
         requestAnimationFrame(this.animate);
 
-        console.log(activeAudios.size);
+        //console.log(activeAudios.size);
 
         //pauseGame(5);
     }
