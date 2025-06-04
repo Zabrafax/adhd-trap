@@ -39,26 +39,30 @@ export class Ball {
         this.calculateParam();
     }
 
-    checkIfOutsideDuringArcScaling(arc) {
+    fixIfOutsideDuringArcScaling(arc, arcDelta) {
         if (arc == null) {
             return false;
         }
 
         let smallestRadius = arc.radius;
-        let currentDistanceX = arc.centerX - this._x;
-        let currentDistanceY = arc.centerY - this._y;
-        let currentDistance = Math.sqrt(currentDistanceX * currentDistanceX + currentDistanceY * currentDistanceY);
-        let currentSin = this._x / currentDistance;
-        let currentCos = this._y / currentDistance;
-        if (Math.abs(currentDistance + this.ballRadius) > Math.abs(smallestRadius - arc.arcThickness)) {
-            let newDistance = smallestRadius - arc.arcThickness - 5;
-            console.log('Current distance: ' + Math.abs(currentDistance + this.ballRadius));
-            console.log('Smallest radius: ' + (smallestRadius - arc.arcThickness));
+        let currentDistanceX = this._x - arc.centerX;
+        let currentDistanceY = this._y - arc.centerY;
+        let currentDistance = Math.sqrt(currentDistanceX * currentDistanceX + currentDistanceY * currentDistanceY) + this.ballRadius;
+        let currentSin = currentDistanceX / currentDistance;
+        let currentCos = currentDistanceY / currentDistance;
+        if (currentDistance > smallestRadius - arc.arcThickness) {
+            let newDistance = smallestRadius - arc.arcThickness - arcDelta;
+            //console.log('Ball centers: ' + this._y + ', ' + this._x);
+            //console.log('Arc centers: ' + arc.centerY + ', ' + arc.centerX);
+            //console.log('Sin and cos:' + currentSin + ', ' + currentCos);
+            console.log('Current distance: ' + currentDistance);
+            //console.log('Smallest radius: ' + (smallestRadius - arc.arcThickness));
             console.log('New distance: ' + newDistance);
             this._x = arc.centerX + newDistance * currentSin;
             this._y = arc.centerY + newDistance * currentCos;
             //this._x = canvasCenterX;
             //this._y = canvasCenterY;
+            console.log('Fixed with new pos: ' + this._y + ', ' + this._x);
         }
     }
 

@@ -1,11 +1,11 @@
 import {hexToRGBA} from "../utils.js";
-import {radiusScaleTimeout} from "./game.js";
 
 export class Arc {
     constructor(centerY, centerX, arcColor, radius, gapAngle, rotationSpeed, arcThickness, angle, drawArcTick) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.arcColor = arcColor;
+        this.expectedRadius = radius;
         this.radius = radius;
         this.gapAngle = gapAngle * Math.PI / 180;
         this.rotationSpeed = rotationSpeed;
@@ -14,6 +14,10 @@ export class Arc {
         this.angle = (angle - 90 - gapAngle / 2) * (Math.PI / 180);
 
         this.drawArcTick = drawArcTick;
+    }
+
+    setBall(ball) {
+        this.ball = ball;
     }
 
     isInGap(angle) {
@@ -59,10 +63,6 @@ export class Arc {
     }
 
     hasGoneThrough(y, x, ballRadius) {
-        // if (radiusScaleTimeout > 0) {
-        //     return false;
-        // }
-
         const dy = y - this.centerY;
         const dx = x - this.centerX;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -71,6 +71,14 @@ export class Arc {
     }
 
     move() {
+        if (this.radiusScaleStepsCount > 0) {
+            this.radius += this.radiusScaleDelta;
+            this.radiusScaleStepsCount--;
+            if(this.ball !== null) {
+                this.ball.fixIfOutsideDuringArcScaling(this, this.radiusScaleDelta);
+            }
+        }
+
         this.angle += this.rotationSpeed;
         if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;
         if (this.angle < 0) this.angle += 2 * Math.PI;
@@ -109,8 +117,11 @@ export class Arc {
         ctx.closePath();
     }
 
-    updateRadius(radius) {
-        this.radius = radius;
+    updateRadius(newRadius, stepsCount = 40) {
+        //console.log('Set radius update to: ' + newRadius);
+        this.radiusScaleDelta = (newRadius - this.radius) / stepsCount;
+        this.radiusScaleStepsCount = stepsCount;
+        this.expectedRadius = newRadius;
     }
 
     reverseDirection() {

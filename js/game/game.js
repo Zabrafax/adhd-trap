@@ -5,8 +5,6 @@ import {activeAudios, playSound, playSoundInDuration} from '../audio/sounds.js';
 import {drawScore, hexToRGBA, sleep, random} from '../utils.js';
 import {DropArc} from "./dropArc.js";
 
-export let radiusScaleTimeout = 0;
-
 export class Game {
     ctx;
     canvasElement;
@@ -174,6 +172,7 @@ export class Game {
         this.arcs = this.arcs.filter(arc => {
             if (arc.hasGoneThrough(this.ball.y, this.ball.x, this.ball.ballRadius)) {
                 this.onArcPassed(arc);
+                this.afterArcPassed(arc);
                 return false;
             }
             return true;
@@ -199,16 +198,17 @@ export class Game {
             }
         }
 
+
+
         requestAnimationFrame(this.animate);
-
-
-        if (radiusScaleTimeout > 0) {
-            radiusScaleTimeout--;
-        }
-        //console.log('Radius scale timeout: ' + radiusScaleTimeout);
         //console.log(activeAudios.size);
+    }
 
-        //pauseGame(5);
+    afterArcPassed(arc) {
+        this.arcs.forEach(arc => {
+            arc.updateRadius(arc.expectedRadius - (this.arcGap + this.arcThickness));
+            arc.setBall(this.ball);
+        });
     }
 
     stop() {
@@ -230,12 +230,6 @@ export class Game {
     }
 
     onArcPassed(arc) {
-        this.arcs.forEach(arc => {
-            arc.updateRadius(arc.radius - (this.arcGap + this.arcThickness));
-            this.ball.checkIfOutsideDuringArcScaling(arc);
-            radiusScaleTimeout = 10;
-        });
-
         //dropArcs creation
         if (this.arcDestroyEffect) {
             this.dropArcs.push(new DropArc(this.centerY, this.centerX, this.canvasElement, arc.arcColor,
