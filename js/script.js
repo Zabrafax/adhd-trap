@@ -279,3 +279,6 @@ function resizeCanvas() {
     canvasElement.width = 1600;
     canvasElement.height = 1600;
 }
+
+export const canvasCenterX = canvasElement.width / 2;
+export const canvasCenterY = canvasElement.height / 2;

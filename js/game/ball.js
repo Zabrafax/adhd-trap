@@ -1,5 +1,6 @@
 import {random} from "../utils.js";
 import {playSound, playSoundInDuration} from '../audio/sounds.js';
+import {canvasCenterX, canvasCenterY} from "../script.js";
 
 export class Ball {
     bounceSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
@@ -38,6 +39,29 @@ export class Ball {
         this.calculateParam();
     }
 
+    checkIfOutsideDuringArcScaling(arc) {
+        if (arc == null) {
+            return false;
+        }
+
+        let smallestRadius = arc.radius;
+        let currentDistanceX = arc.centerX - this._x;
+        let currentDistanceY = arc.centerY - this._y;
+        let currentDistance = Math.sqrt(currentDistanceX * currentDistanceX + currentDistanceY * currentDistanceY);
+        let currentSin = this._x / currentDistance;
+        let currentCos = this._y / currentDistance;
+        if (Math.abs(currentDistance + this.ballRadius) > Math.abs(smallestRadius - arc.arcThickness)) {
+            let newDistance = smallestRadius - arc.arcThickness - 5;
+            console.log('Current distance: ' + Math.abs(currentDistance + this.ballRadius));
+            console.log('Smallest radius: ' + (smallestRadius - arc.arcThickness));
+            console.log('New distance: ' + newDistance);
+            this._x = arc.centerX + newDistance * currentSin;
+            this._y = arc.centerY + newDistance * currentCos;
+            //this._x = canvasCenterX;
+            //this._y = canvasCenterY;
+        }
+    }
+
     move(arcs) {
         //console.log(Math.hypot(this.dx, this.dy));
         //console.log(this.bounceFactor);
@@ -45,7 +69,7 @@ export class Ball {
         this.dy += this.gravity;
 
         /*
-            Bounce in canvas when there are no arcs (disabled)
+            Bounce in canvas when there are no arcs (disabled).
          */
         // if (this._x - this._ballRadius < 0 || this._x + this._ballRadius > this.canvas.width) {
         //     this.dx *= -this.bounceFactor;

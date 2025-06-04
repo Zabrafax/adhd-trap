@@ -1,4 +1,5 @@
 import {hexToRGBA} from "../utils.js";
+import {radiusScaleTimeout} from "./game.js";
 
 export class Arc {
     constructor(centerY, centerX, arcColor, radius, gapAngle, rotationSpeed, arcThickness, angle, drawArcTick) {
@@ -58,11 +59,21 @@ export class Arc {
     }
 
     hasGoneThrough(y, x, ballRadius) {
+        // if (radiusScaleTimeout > 0) {
+        //     return false;
+        // }
+
         const dy = y - this.centerY;
         const dx = x - this.centerX;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         return dist + ballRadius >= this.radius;
+    }
+
+    move() {
+        this.angle += this.rotationSpeed;
+        if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;
+        if (this.angle < 0) this.angle += 2 * Math.PI;
     }
 
     draw(ctx) {
@@ -78,10 +89,6 @@ export class Arc {
             this.drawTick(ctx, this.angle + this.gapAngle);
             this.drawTick(ctx, this.angle);
         }
-
-        this.angle += this.rotationSpeed;
-        if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;
-        if (this.angle < 0) this.angle += 2 * Math.PI;
     }
 
     drawTick(ctx, angle) {
@@ -100,6 +107,10 @@ export class Arc {
         ctx.lineWidth = this.arcThickness / 2;
         ctx.stroke();
         ctx.closePath();
+    }
+
+    updateRadius(radius) {
+        this.radius = radius;
     }
 
     reverseDirection() {
