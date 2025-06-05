@@ -45,6 +45,6 @@ play with. Once you find your perfect settings, you can download the result. Hav
 
 ## Future Improvements
 
-Adding new different effects from trending videos or even adding other adhd-traps.
+Adding new different effects from trending videos such as gradient arcs coloring, dynamic arcs adding or even adding other ADHD-traps.
 
 #### Created by [@Zabrafax](https://github.com/Zabrafax)
