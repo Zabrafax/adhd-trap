@@ -1,4 +1,4 @@
-export function initializeDropzone(dropzoneId, fileNameId, variable, durationSliderContainer) {
+export function initializeDropzone(dropzoneId, fileNameId, variable, variableSliderContainer) {
     const input = document.getElementById(dropzoneId);
     const fileNameDisplay = document.getElementById(fileNameId);
 
@@ -7,39 +7,39 @@ export function initializeDropzone(dropzoneId, fileNameId, variable, durationSli
         if (file) {
             fileNameDisplay.textContent = file.name;
             variable.value = file;
-            if (durationSliderContainer !== null) {
-                openSliderContainer(durationSliderContainer);
+            if (variableSliderContainer !== null) {
+                openSliderContainer(variableSliderContainer);
             }
         } else {
             variable.value = null;
             fileNameDisplay.textContent = 'No file chosen';
-            if (durationSliderContainer !== null) {
-                hideSliderContainer(durationSliderContainer);
+            if (variableSliderContainer !== null) {
+                hideSliderContainer(variableSliderContainer);
             }
         }
     });
 
     variable.value = null;
     fileNameDisplay.textContent = 'No file chosen';
-    hideSliderContainer(durationSliderContainer);
+    hideSliderContainer(variableSliderContainer);
 }
 
-function hideSliderContainer(sliderContainer) {
-    const height = sliderContainer.scrollHeight + 'px';
+function hideSliderContainer(variableSliderContainer) {
+    const height = variableSliderContainer.scrollHeight + 'px';
 
-    sliderContainer.style.height = height;
+    variableSliderContainer.style.height = height;
 
-    sliderContainer.style.height = '0';
-    sliderContainer.style.transform = 'scaleY(0)';
+    variableSliderContainer.style.height = '0';
+    variableSliderContainer.style.transform = 'scaleY(0)';
 
     setTimeout(function () {
-        sliderContainer.style.height = '0';
+        variableSliderContainer.style.height = '0';
     }, 500)
 }
 
-function openSliderContainer(sliderContainer) {
-    const height = sliderContainer.scrollHeight + 'px';
+function openSliderContainer(variableSliderContainer) {
+    const height = variableSliderContainer.scrollHeight + 'px';
 
-    sliderContainer.style.height = height;
-    sliderContainer.style.transform = 'scaleY(1)';
+    variableSliderContainer.style.height = height;
+    variableSliderContainer.style.transform = 'scaleY(1)';
 }
