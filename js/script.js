@@ -196,8 +196,11 @@ document.getElementById("toggle7").addEventListener("change", function () {
 let arcPassSoundFile = {value: null};
 let ballBounceSoundFile = {value: null};
 
-initializeDropzone('dropzone1', 'fileName1', arcPassSoundFile);
-initializeDropzone('dropzone2', 'fileName2', ballBounceSoundFile);
+const containerPassSoundDuration = document.getElementById('containerPassSoundDuration');
+const containerBounceSoundDuration = document.getElementById('containerBounceSoundDuration');
+
+initializeDropzone('dropzone1', 'fileName1', arcPassSoundFile, containerPassSoundDuration);
+initializeDropzone('dropzone2', 'fileName2', ballBounceSoundFile, containerBounceSoundDuration);
 
 
 let passSoundDuration = {value: null};
@@ -219,7 +222,6 @@ function initSoundSliders() {
     return sliders;
 }
 initSoundSliders();
-
 
 //endregion
 

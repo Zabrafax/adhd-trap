@@ -211,8 +211,21 @@ main {
     margin-bottom: 0.5rem;
 }
 
+.slider__sounds {
+    height: 0;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.5s;
+}
+
 .slider__sounds:not(:last-child) {
     margin-bottom: 1rem;
+}
+
+.slider__sounds.open {
+    height: auto;
+    transform: scaleY(1);
 }
 
 .right__wrapper {
