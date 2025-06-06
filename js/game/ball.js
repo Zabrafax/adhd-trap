@@ -3,7 +3,7 @@ import {playSound, playSoundInDuration} from '../audio/sounds.js';
 import {canvasCenterX, canvasCenterY} from "../script.js";
 
 export class Ball {
-    bounceSoundDefault = "../../assets/sounds/xylophone-hit.mp3";
+    bounceSoundDefault = "assets/sounds/xylophone-hit.mp3";
 
     constructor(y, x, ballStartAngle, startSpeed, ballRadius, deltaLimitFactor, canvas, bounceFactor,
                 massMultiplier, ballBounceSound, ballBounceSoundFile, bounceSoundDuration) {
