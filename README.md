@@ -1,6 +1,6 @@
 # ADHD Bouncy Ball project using JavaScript
 
-View on GitHub Pages: https://zabrafax.github.io/neon-lights-webpage/
+View on GitHub Pages: https://zabrafax.github.io/adhd-trap/
 
 ![Preview](./assets/readme/adhd-example.gif)
 
@@ -18,7 +18,7 @@ play with. Once you find your perfect settings, you can download the result. Hav
 
 ### View on GitHub pages
 
-    https://zabrafax.github.io/neon-lights-webpage/
+https://zabrafax.github.io/adhd-trap/
 
 ### Manual launch:
 
