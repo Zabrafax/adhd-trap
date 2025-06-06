@@ -55,7 +55,7 @@ export class Game {
     backgroundColor;
     arcsColor;
 
-    passSoundDefault = "assets/sounds/xylophone-hit.mp3";
+    passSoundDefault = "/adhd-trap/assets/sounds/xylophone-hit.mp3";
 
 
     constructor() {
