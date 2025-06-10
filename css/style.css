@@ -344,7 +344,12 @@ main {
 
 footer {
     height: 5rem;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     font-weight: 400;
 
@@ -352,12 +357,14 @@ footer {
     background-color: var(--color-footer);
 }
 
-footer p:not(:first-of-type) {
+footer p {
     margin-top: 0.25rem;
 }
 
-footer p:first-of-type {
+.footer__link {
     margin-top: 0.5rem;
+
+    color: white;
 }
 
 @media (max-width: 480px) {
